@@ -1,0 +1,2366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1E1A14">
+
+<title>Visual State Studio — the full pipeline: film, stills, design, web</title>
+<meta name="description" content="South-East Melbourne studio running the full pipeline — film, stills, design, web, social and paid media — on a fortnightly rhythm. One brief, one invoice, one studio.">
+<link rel="canonical" href="https://visualstate.studio/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://visualstate.studio/">
+<meta property="og:title" content="Visual State Studio — the full pipeline: film, stills, design, web">
+<meta property="og:description" content="One studio, six disciplines, fortnightly rhythm. Film, stills, design, web, social and paid media out of South-East Melbourne.">
+<meta property="og:image" content="https://visualstate.studio/assets/circa/01.jpg">
+<meta property="og:site_name" content="Visual State Studio">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Visual State Studio — the full pipeline: film, stills, design, web">
+<meta name="twitter:description" content="One studio, six disciplines, fortnightly rhythm. Film, stills, design, web, social and paid media out of South-East Melbourne.">
+<meta name="twitter:image" content="https://visualstate.studio/assets/circa/01.jpg">
+
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
+<link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/favicon/favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/favicon-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/favicon/favicon-512x512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/favicon-180x180.png">
+<link rel="manifest" href="assets/favicon/site.webmanifest">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Caveat:wght@400;600&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- JSON-LD Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Visual State Studio",
+  "url": "https://visualstate.studio/",
+  "logo": "https://visualstate.studio/assets/favicon/favicon-512x512.png",
+  "description": "Full-pipeline creative studio — film, stills, design, web, social and paid media. South-East Melbourne.",
+  "foundingDate": "2025",
+  "founders": [
+    { "@type": "Person", "name": "Joseph De Silva" },
+    { "@type": "Person", "name": "Aleece Sorraghan" }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "VIC",
+    "addressCountry": "AU",
+    "addressLocality": "South-East Melbourne"
+  },
+  "sameAs": [
+    "https://instagram.com/visualstate.studio"
+  ],
+  "taxID": "97 874 036 938",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "email": "team@visualstate.studio"
+  }
+}
+</script>
+<style>
+:root {
+  --paper: #F0EBE0;
+  --paper-shadow: #D8D2C3;
+  --ink: #18140F;
+  --ink-soft: #4A4437;
+  --muted: #8A8270;
+  --rule: #1A1510;
+  --stamp: #B53A2A;
+  --mark: #2542B5; /* hand annotations */
+  --bg: #1E1A14;
+  --background: #1E1A14; /* brand-guide alias */
+  --paper-raised: #FBF7EC; /* lighter variant of --paper — used for the floating work-tile surface */
+
+  /* Motion — per Brand Guide §09 */
+  --ease-out-editorial: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-standard:      cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-in:            cubic-bezier(0.4, 0.0, 1.0, 1.0);
+  --dur-instant: 80ms;
+  --dur-fast:    180ms;
+  --dur-base:    320ms;
+  --dur-slow:    560ms;
+  --dur-reveal:  900ms;
+}
+
+/* Focus states — Brand Guide §08 — 2px --mark ring at 2px offset */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--mark);
+  outline-offset: 2px;
+}
+.nav-dots a:focus-visible,
+.topbar-cta:focus-visible,
+.close-card:focus-visible,
+.work-tile:focus-visible,
+.lightbox-close:focus-visible {
+  outline: 2px solid var(--mark);
+  outline-offset: 2px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  background: var(--bg);
+  font-family: 'Newsreader', Georgia, serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* Dark leather desk background (between pages) */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse at 50% 30%, #2a241a, #0d0a07 70%),
+    linear-gradient(180deg, #1a1510, #0a0805);
+  background-blend-mode: multiply;
+}
+
+/* ---------- TYPE ---------- */
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; }
+.disp { font-family: 'Fraunces', serif; font-weight: 300; letter-spacing: -.02em; }
+.hand { font-family: 'Caveat', cursive; color: var(--mark); }
+.read { font-family: 'Newsreader', serif; }
+em { font-style: italic; }
+
+/* ---------- PAGE SHELL ---------- */
+.page {
+  position: relative;
+  max-width: 1760px;
+  width: calc(100% - 32px);
+  margin: 40px auto;
+  min-height: calc(100vh - 80px);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 56px 72px 72px;
+  box-shadow:
+    0 2px 0 rgba(0,0,0,.4),
+    0 30px 60px -15px rgba(0,0,0,.6),
+    0 50px 100px -20px rgba(0,0,0,.5);
+  overflow: hidden;
+  /* paper texture */
+  background-image:
+    radial-gradient(rgba(24,20,15,0.025) 1px, transparent 1px),
+    radial-gradient(rgba(24,20,15,0.018) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(216,210,195,0.15), transparent 100px);
+  background-size: 3px 3px, 7px 7px, 100% 100%;
+  background-position: 0 0, 1px 2px, 0 0;
+}
+/* fold shadow down centre */
+.page::before {
+  content: '';
+  position: absolute; top: 0; bottom: 0;
+  left: 50%; width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(24,20,15,.08) 20%, rgba(24,20,15,.08) 80%, transparent);
+  transform: translateX(-.5px);
+  pointer-events: none;
+  opacity: .5;
+}
+/* slight corner darkening */
+.page::after {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 60%, rgba(48,40,28,.12));
+}
+
+/* ---------- LETTERHEAD (top of each page) ---------- */
+.letterhead {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  padding-bottom: 18px;
+  border-bottom: 2px solid var(--rule);
+  margin-bottom: 4px;
+  align-items: center;
+}
+.letterhead-left, .letterhead-right { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--ink); }
+.letterhead-right { text-align: right; }
+.letterhead-mark {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 22px;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.letterhead-mark::before {
+  content: '●';
+  color: var(--stamp);
+  font-size: 8px;
+  vertical-align: middle;
+  margin-right: 8px;
+  transform: translateY(-3px);
+  display: inline-block;
+}
+
+/* double-rule under letterhead */
+.page > .letterhead + .rule-thin {
+  border-top: 1px solid var(--rule);
+  margin-top: 4px;
+  margin-bottom: 40px;
+}
+
+/* ---------- PAGE METADATA STRIP ---------- */
+.meta-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 48px;
+}
+.meta-field .mono { color: var(--muted); margin-bottom: 6px; display: block; }
+.meta-field .value {
+  font-family: 'Newsreader', serif;
+  font-size: 16px;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.meta-field .value em { font-style: italic; }
+
+/* ---------- PAGE NUMBERING (bottom corner) ---------- */
+.page-number {
+  position: absolute;
+  bottom: 28px; left: 72px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .22em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.page-stamp {
+  position: absolute;
+  bottom: 24px; right: 72px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .22em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+/* ========================================================
+   PAGE 01 — COVER
+   ======================================================== */
+.cover {
+  padding: 56px 72px 80px;
+}
+.cover-hero {
+  padding: 80px 0 100px;
+}
+.cover-kicker { color: var(--ink-soft); margin-bottom: 48px; }
+.cover-kicker::before {
+  content: '—'; margin-right: 14px; color: var(--stamp);
+}
+.cover-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(64px, 11vw, 160px);
+  line-height: .88;
+  letter-spacing: -.045em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.cover-title em { font-style: italic; }
+.cover-title .struck {
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--stamp);
+  color: var(--ink-soft);
+  position: relative;
+}
+/* hand-annotation replacing "agency" — arrow points LEFT back at the struck word */
+.hand-fix {
+  font-family: 'Caveat', cursive;
+  color: var(--mark);
+  font-size: clamp(26px, 2.6vw, 48px);
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 18px);
+  transform: translateY(-55%) rotate(-4deg);
+  font-weight: 500;
+  white-space: nowrap;
+  letter-spacing: 0;
+  line-height: 1;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .18em;
+}
+.hand-fix::before {
+  content: '←';
+  display: inline-block;
+  font-size: .85em;
+  opacity: .85;
+  transform: translateY(-.05em);
+}
+
+.cover-sub {
+  max-width: 700px;
+  font-family: 'Newsreader', serif;
+  font-size: clamp(17px, 1.4vw, 22px);
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin-top: 64px;
+  text-wrap: pretty;
+}
+.cover-sub em { color: var(--ink); font-style: italic; }
+
+/* Approved stamp on cover */
+.stamp {
+  position: absolute;
+  top: 130px; right: 68px;
+  padding: 14px 22px 16px;
+  border: 3px solid var(--stamp);
+  color: var(--stamp);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  transform: rotate(-6deg);
+  opacity: 1;
+  line-height: 1.4;
+  text-align: center;
+  background: rgba(181,58,42,.06);
+  box-shadow: 0 0 0 1px var(--stamp), inset 0 0 0 2px rgba(181,58,42,.15);
+}
+.stamp em {
+  display: block;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 20px;
+  letter-spacing: -.01em;
+  margin-top: 3px;
+  text-transform: none;
+  font-weight: 400;
+}
+/* paper wear under stamp */
+.stamp::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: radial-gradient(ellipse, transparent 60%, rgba(181,58,42,.15));
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Cover footer — three columns */
+.cover-foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  padding-top: 36px;
+  border-top: 1px solid var(--rule);
+  margin-top: 80px;
+}
+.cover-foot-field .mono { color: var(--muted); display: block; margin-bottom: 8px; }
+.cover-foot-field .value { font-family: 'Fraunces', serif; font-size: 22px; line-height: 1.15; color: var(--ink); font-style: italic; font-weight: 300; letter-spacing: -.01em; }
+
+/* ========================================================
+   PAGE 02 — THE CLIENTS (table)
+   ======================================================== */
+.clients-heading {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 68px);
+  line-height: .95;
+  letter-spacing: -.025em;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.clients-heading em { font-style: italic; }
+.clients-sub {
+  max-width: 620px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 56px;
+}
+
+.ledger {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Newsreader', serif;
+}
+.ledger thead th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rule);
+  font-weight: 500;
+}
+.ledger thead th:last-child, .ledger tbody td:last-child { text-align: right; }
+.ledger tbody tr {
+  border-bottom: 1px solid rgba(24,20,15,.15);
+  cursor: pointer;
+  transition: background .2s;
+}
+.ledger tbody tr:hover { background: rgba(181,58,42,.05); }
+.ledger tbody tr.open { background: rgba(181,58,42,.04); }
+.ledger tbody td {
+  padding: 22px 12px;
+  font-size: 18px;
+  vertical-align: top;
+  color: var(--ink);
+}
+.ledger .cli-no { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; color: var(--muted); width: 60px; }
+.ledger .cli-name { font-family: 'Fraunces', serif; font-size: 22px; line-height: 1.1; letter-spacing: -.015em; font-weight: 300; }
+.ledger .cli-name em { font-style: italic; }
+.ledger .cli-industry { color: var(--ink-soft); font-size: 15px; }
+.ledger .cli-length { font-size: 15px; color: var(--ink-soft); width: 180px; }
+.ledger .cli-result { font-style: italic; color: var(--ink); font-size: 16px; line-height: 1.3; }
+.ledger .cli-result strong { color: var(--stamp); font-style: normal; font-weight: 400; }
+
+/* Expanded row inside ledger */
+.ledger tr.details-row {
+  display: none;
+  cursor: default;
+}
+.ledger tr.details-row.open {
+  display: table-row;
+}
+.ledger tr.details-row:hover { background: transparent; }
+.ledger tr.details-row td {
+  padding: 0 12px 28px;
+  border-bottom: none;
+}
+.ledger tr.details-row.open td { padding-top: 8px; }
+.ledger tr.details-row .details-inner {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 40px;
+  align-items: start;
+  padding: 8px 0 24px;
+}
+.ledger .detail-copy p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+.ledger .detail-copy p em { color: var(--ink); }
+.ledger .detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+.ledger .detail-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  filter: saturate(.9);
+}
+
+/* ========================================================
+   PAGE 03 — HOW WE WORK
+   ======================================================== */
+.rhythm-heading {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 68px);
+  line-height: .95;
+  letter-spacing: -.025em;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.rhythm-heading em { font-style: italic; }
+.rhythm-lead {
+  max-width: 640px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 56px;
+}
+.rhythm-lead em { color: var(--ink); font-style: italic; }
+
+.rhythm-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.rhythm-week {
+  padding: 28px 20px 40px;
+  border-right: 1px solid rgba(24,20,15,.15);
+  position: relative;
+}
+.rhythm-week:last-child { border-right: 0; }
+.rhythm-week .wk-no { color: var(--muted); margin-bottom: 24px; display: block; }
+.rhythm-week h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: -.015em;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.rhythm-week ul { list-style: none; }
+.rhythm-week li {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  padding: 6px 0;
+  padding-left: 18px;
+  position: relative;
+}
+.rhythm-week li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--stamp);
+}
+
+/* Handwritten annotation on the rhythm */
+.rhythm-note {
+  position: absolute;
+  top: 10px; right: 16px;
+  font-family: 'Caveat', cursive;
+  color: var(--mark);
+  font-size: 20px;
+  transform: rotate(3deg);
+  max-width: 140px;
+  line-height: 1.1;
+}
+
+/* two-column aside after rhythm */
+.rhythm-aside {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  margin-top: 64px;
+}
+.rhythm-aside h4 { color: var(--muted); margin-bottom: 18px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; }
+.rhythm-aside p { font-size: 16px; line-height: 1.55; color: var(--ink); margin-bottom: 14px; }
+.rhythm-aside em { font-style: italic; }
+
+/* ========================================================
+   PAGE 04 — THE STUDIO
+   ======================================================== */
+.studio-heading {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 68px);
+  line-height: .95;
+  letter-spacing: -.025em;
+  margin-bottom: 56px;
+  color: var(--ink);
+}
+.studio-heading em { font-style: italic; }
+
+.studio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+.studio-card {
+  padding: 32px 0;
+  border-top: 2px solid var(--rule);
+}
+.studio-photo {
+  aspect-ratio: 4/5;
+  background: var(--paper-shadow);
+  overflow: hidden;
+  margin-bottom: 24px;
+  filter: sepia(.08);
+}
+.studio-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.studio-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.studio-name em { font-style: italic; }
+.studio-role { color: var(--muted); margin-bottom: 20px; display: block; }
+.studio-bio { font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin-bottom: 20px; }
+.studio-sig {
+  font-family: 'Caveat', cursive;
+  color: var(--mark);
+  font-size: 30px;
+  line-height: 1;
+  margin-top: 10px;
+  display: block;
+  white-space: nowrap;
+}
+
+.studio-quote {
+  grid-column: 1 / -1;
+  margin-top: 48px;
+  padding: 48px 56px;
+  background: rgba(24,20,15,.04);
+  border-left: 3px solid var(--stamp);
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 26px;
+  line-height: 1.25;
+  letter-spacing: -.015em;
+  color: var(--ink);
+}
+.studio-quote::before { content: '"'; margin-right: 4px; color: var(--stamp); }
+.studio-quote::after { content: '"'; margin-left: 4px; color: var(--stamp); }
+
+/* ========================================================
+   PAGE 05 — NEXT STEP
+   ======================================================== */
+.close-heading {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(48px, 7vw, 108px);
+  line-height: 1.0;
+  letter-spacing: -.035em;
+  margin-bottom: 64px;
+  color: var(--ink);
+  max-width: 900px;
+  text-wrap: balance;
+}
+.close-heading em { font-style: italic; }
+.close-sub {
+  max-width: 640px;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 72px;
+}
+
+.close-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 2px solid var(--rule);
+  border-bottom: 2px solid var(--rule);
+  margin-bottom: 60px;
+}
+.close-card {
+  padding: 36px 28px 40px;
+  border-right: 1px solid rgba(24,20,15,.15);
+  cursor: pointer;
+  transition: background .2s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.close-card:last-child { border-right: 0; }
+.close-card:hover { background: rgba(181,58,42,.05); }
+.close-card .cc-no { color: var(--muted); margin-bottom: 20px; display: block; }
+.close-card h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 30px;
+  line-height: 1.1;
+  color: var(--ink);
+  letter-spacing: -.015em;
+  margin-bottom: 10px;
+}
+.close-card .cc-detail {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+.close-card .cc-cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--stamp);
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+.close-card .cc-cta::after { content: '→'; }
+
+.close-foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: end;
+  padding-top: 40px;
+  border-top: 1px solid var(--rule);
+}
+.close-foot .sig-block { text-align: left; }
+.close-foot .sig-line {
+  height: 1px; background: var(--ink); margin-bottom: 8px; max-width: 220px;
+}
+.close-foot .sig-name { font-family: 'Caveat', cursive; color: var(--mark); font-size: 28px; line-height: 1; margin-bottom: 4px; }
+.close-foot .sig-title { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; }
+.close-foot .address { text-align: right; }
+.close-foot .address .mono { color: var(--muted); margin-bottom: 6px; display: block; }
+.close-foot .address p { font-size: 14px; line-height: 1.5; color: var(--ink); }
+
+/* ========================================================
+   PAGE — PAIN POINTS
+   ======================================================== */
+.pains-heading {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(40px, 6vw, 88px);
+  line-height: .95;
+  letter-spacing: -.03em;
+  margin: 12px 0 56px;
+  color: var(--ink);
+  max-width: 900px;
+  text-wrap: balance;
+}
+.pains-heading em { font-style: italic; }
+
+.pains-list {
+  border-top: 1px solid var(--rule);
+}
+.pain {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 60px;
+  padding: 40px 0;
+  border-bottom: 1px solid rgba(24,20,15,.15);
+  align-items: start;
+  position: relative;
+}
+.pain-problem { position: relative; }
+.pain-no { color: var(--muted); display: block; margin-bottom: 16px; }
+.pain-quote {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(26px, 3.4vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.pain-quote em { font-style: italic; color: var(--stamp); }
+.pain-fix {
+  padding-top: 6px;
+  border-left: 2px solid var(--stamp);
+  padding-left: 24px;
+}
+.pain-fix .mono { color: var(--stamp); display: block; margin-bottom: 10px; }
+.pain-fix p {
+  font-family: 'Newsreader', serif;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.pains-kicker {
+  margin-top: 40px;
+  text-align: center;
+}
+.pains-hand {
+  font-size: 28px;
+  display: inline-block;
+  transform: rotate(-2deg);
+}
+
+/* ========================================================
+   PAGE — CLIENTS (talent-folio reel cards)
+   ======================================================== */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+.work-tile {
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  padding: 12px 12px 14px;
+  box-shadow: 0 4px 0 rgba(20,17,13,.1);
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.work-tile:hover { transform: translateY(-2px); box-shadow: 0 6px 0 rgba(20,17,13,.15); }
+
+.work-tile .wt-slate {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  border-bottom: 1px dashed var(--rule);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--muted);
+}
+.work-tile .wt-slate .wt-stamp-mini {
+  color: var(--stamp);
+  border: 1px solid var(--stamp);
+  padding: 2px 6px;
+  font-size: 8px;
+  letter-spacing: .22em;
+}
+
+.work-tile .wt-ph {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: var(--paper-shadow);
+  filter: sepia(.05) saturate(.95);
+}
+.work-tile .wt-ph img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s cubic-bezier(.16,1,.3,1);
+  display: block;
+}
+.work-tile:hover .wt-ph img { transform: scale(1.04); }
+
+/* Expand hint that fades in on hover */
+.work-tile .wt-expand {
+  position: absolute;
+  bottom: 10px; right: 10px;
+  background: rgba(24,20,15,.88);
+  color: var(--paper);
+  padding: 6px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .3s, transform .3s;
+  pointer-events: none;
+}
+.work-tile:hover .wt-expand { opacity: 1; transform: none; }
+
+.work-tile .wt-info {
+  padding-top: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: baseline;
+}
+.work-tile .wt-info .wt-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 24px;
+  letter-spacing: -.015em;
+  line-height: 1;
+  color: var(--ink);
+}
+.work-tile .wt-info .wt-name em { font-style: italic; color: var(--stamp); }
+.work-tile .wt-info .wt-pg {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .2em;
+  color: var(--muted);
+  font-weight: 500;
+}
+.work-tile .wt-row2 {
+  margin-top: 6px;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Newsreader', serif;
+  font-size: 13px;
+  color: var(--ink-soft);
+  gap: 12px;
+}
+.work-tile .wt-row2 strong { color: var(--stamp); font-weight: 400; font-style: italic; }
+
+.work-foot {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.work-foot em { font-family: 'Fraunces', serif; font-style: italic; font-size: 20px; letter-spacing: -.01em; color: var(--ink); text-transform: none; }
+
+/* ========================================================
+   CLIENT LIGHTBOX / EXPANDED VIEW
+   ======================================================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(10,8,5,.92);
+  backdrop-filter: blur(10px);
+  display: none;
+  overflow-y: auto;
+  padding: 40px 20px;
+}
+.lightbox.open { display: block; animation: lbIn .3s ease; }
+@keyframes lbIn { from { opacity: 0; } to { opacity: 1; } }
+
+.lightbox-inner {
+  max-width: 1180px;
+  width: calc(100% - 20px);
+  margin: 0 auto;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 56px 64px 72px;
+  box-shadow: 0 40px 80px rgba(0,0,0,.6);
+  position: relative;
+  background-image:
+    radial-gradient(rgba(24,20,15,0.025) 1px, transparent 1px),
+    radial-gradient(rgba(24,20,15,0.018) 1px, transparent 1px);
+  background-size: 3px 3px, 7px 7px;
+  animation: lbUp .4s ease;
+}
+@keyframes lbUp { from { transform: translateY(20px); } to { transform: none; } }
+
+.lightbox-close {
+  position: absolute;
+  top: 24px; right: 24px;
+  width: 44px; height: 44px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--ink);
+  transition: background .2s, color .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-close:hover { background: var(--ink); color: var(--paper); }
+
+.lb-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--rule);
+  margin-bottom: 40px;
+  align-items: end;
+}
+.lb-head .lb-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(44px, 5vw, 72px);
+  line-height: 1;
+  letter-spacing: -.025em;
+  color: var(--ink);
+}
+.lb-head .lb-title em { font-style: italic; color: var(--stamp); }
+.lb-head .lb-kicker { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; margin-bottom: 10px; display: block; }
+
+.lb-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+  text-align: right;
+}
+.lb-meta .mono { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; }
+.lb-meta .val { font-family: 'Fraunces', serif; font-style: italic; font-size: 22px; color: var(--ink); letter-spacing: -.01em; line-height: 1.1; }
+.lb-meta .val strong { color: var(--stamp); font-style: normal; font-weight: 400; }
+
+.lb-gallery {
+  column-count: 3;
+  column-gap: 10px;
+}
+.lb-gallery .lb-shot {
+  break-inside: avoid;
+  margin: 0 0 10px;
+  background: var(--paper-shadow);
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+.lb-gallery .lb-shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* Size classes no longer change layout — kept for backward-compat; first image still reads as hero visually by position */
+.lb-gallery .lb-shot.s-hero,
+.lb-gallery .lb-shot.s-tall,
+.lb-gallery .lb-shot.s-wide,
+.lb-gallery .lb-shot.s-reg { grid-column: auto; grid-row: auto; }
+
+.lb-foot {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.lb-foot em {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: -.01em;
+}
+
+/* Prevent page scroll when lightbox open */
+body.lb-open { overflow: hidden; }
+
+/* Pipeline closer (shared copy line) */
+.pipeline-closer {
+  margin-top: 40px;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(22px, 2.4vw, 32px);
+  line-height: 1.2;
+  letter-spacing: -.015em;
+  color: var(--ink);
+  font-style: italic;
+  text-align: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--rule);
+}
+.pipeline-closer em { color: var(--stamp); font-style: italic; }
+
+/* ========================================================
+   PAGE 02 — PIPELINE
+   ======================================================== */
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+  margin-top: 8px;
+}
+.pipeline-tile {
+  padding: 30px 26px 34px;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+  min-height: 240px;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+}
+.pipeline-tile .pt-no { color: var(--muted); margin-bottom: 18px; display: block; }
+.pipeline-tile h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 30px;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.pipeline-tile p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  flex: 1;
+}
+.pipeline-tile .pt-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  margin-top: 16px;
+  width: fit-content;
+}
+.pipeline-tile--soon { background: rgba(24,20,15,.03); }
+.pipeline-tile .pt-tag--soon { color: var(--stamp); border-color: var(--stamp); }
+
+/* ========================================================
+   PAGE 05 — FOUNDERS (custom per founder)
+   ======================================================== */
+.founders-wrap { display: flex; flex-direction: column; gap: 64px; }
+
+/* ---------- JOSEPH: Technical spec / car-guy / camera card ---------- */
+.founder--joseph {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 23px, rgba(24,20,15,.06) 23px 24px),
+    var(--paper);
+  border: 1px solid var(--rule);
+  position: relative;
+  padding: 0;
+}
+.founder-j-slate {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 16px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom: 3px double var(--paper);
+}
+.founder-j-slate-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  min-height: 14px;
+  line-height: 1.4;
+}
+.founder-j-slate-row .mono { color: var(--paper); opacity: .85; font-size: 10px; }
+.founder-j-slate-row:first-child .mono:last-child { opacity: 1; }
+
+.founder-j-main {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 0;
+}
+.founder-j-photo {
+  position: relative;
+  aspect-ratio: 4/5;
+  background: var(--paper-shadow);
+  overflow: hidden;
+  border-right: 1px solid var(--rule);
+  filter: contrast(1.02) saturate(.9);
+}
+.founder-j-photo img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+/* corner crop marks */
+.founder-j-corner {
+  position: absolute;
+  width: 18px; height: 18px;
+  border: 2px solid var(--stamp);
+}
+.founder-j-corner.tl { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
+.founder-j-corner.tr { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
+.founder-j-corner.bl { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
+.founder-j-corner.br { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+.founder-j-label {
+  position: absolute;
+  bottom: 16px; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(24,20,15,.85);
+  color: var(--paper);
+  padding: 6px 12px;
+  font-size: 9px;
+  letter-spacing: .24em;
+}
+.founder-j-body {
+  padding: 36px 40px 40px;
+  position: relative;
+  background: var(--paper);
+}
+.founder-j-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.founder-j-name em { font-style: italic; }
+.founder-j-role { color: var(--muted); display: block; margin-bottom: 24px; }
+
+.founder-j-specs {
+  list-style: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 24px;
+}
+.founder-j-specs li {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(24,20,15,.15);
+  align-items: baseline;
+}
+.founder-j-specs li .mono { color: var(--muted); font-size: 9px; }
+.founder-j-specs li span:last-child {
+  font-family: 'Newsreader', serif;
+  font-size: 15px;
+  color: var(--ink);
+}
+.founder-j-specs li em { font-style: italic; color: var(--stamp); }
+
+.founder-j-bio {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+}
+.founder-j-bio em { font-style: italic; color: var(--ink); }
+
+.founder-j-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+.founder-j-stamp {
+  padding: 5px 10px;
+  border: 1px solid var(--stamp);
+  color: var(--stamp);
+  font-size: 9px;
+  letter-spacing: .22em;
+}
+
+/* ---------- ALEECE: Ruled ledger / accountant's book card ---------- */
+.founder--aleece {
+  background:
+    repeating-linear-gradient(180deg,
+      transparent 0 27px,
+      rgba(37,66,181,.1) 27px 28px),
+    linear-gradient(90deg,
+      var(--paper) 0,
+      var(--paper) 70px,
+      rgba(181,58,42,.5) 70px,
+      rgba(181,58,42,.5) 71px,
+      var(--paper) 71px);
+  border: 1px solid var(--rule);
+  position: relative;
+  padding: 0;
+}
+.founder-a-header {
+  padding: 14px 22px 14px 90px;
+  border-bottom: 2px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(240, 235, 224, .6);
+  backdrop-filter: blur(1px);
+}
+.founder-a-header-left {
+  display: flex;
+  gap: 18px;
+}
+.founder-a-header .mono { color: var(--muted); font-size: 10px; }
+
+.founder-a-main {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 0;
+}
+.founder-a-body {
+  padding: 40px 40px 40px 90px;
+  position: relative;
+}
+.founder-a-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.founder-a-name em { font-style: italic; }
+.founder-a-role { color: var(--muted); display: block; margin-bottom: 28px; }
+
+.founder-a-entries {
+  margin-bottom: 24px;
+}
+.founder-a-entry {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(24,20,15,.12);
+  align-items: baseline;
+}
+.founder-a-entry .mono { color: var(--mark); font-size: 9px; }
+.founder-a-entry span:last-child {
+  font-family: 'Newsreader', serif;
+  font-size: 16px;
+  color: var(--ink);
+}
+.founder-a-entry em { font-style: italic; }
+
+.founder-a-bio {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+}
+.founder-a-bio em { font-style: italic; color: var(--ink); }
+
+.founder-a-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+.founder-a-stamp {
+  padding: 5px 10px;
+  border: 1px solid var(--mark);
+  color: var(--mark);
+  font-size: 9px;
+  letter-spacing: .22em;
+  transform: rotate(-2deg);
+}
+
+.founder-a-photo {
+  position: relative;
+  aspect-ratio: 4/5;
+  background: var(--paper-shadow);
+  margin: 40px 40px 40px 0;
+  overflow: visible;
+  filter: sepia(.12) contrast(1.02);
+  box-shadow: 0 6px 20px rgba(0,0,0,.15);
+}
+.founder-a-photo img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.founder-a-tape {
+  position: absolute;
+  width: 70px; height: 22px;
+  background: rgba(234, 220, 170, .7);
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  z-index: 2;
+}
+.founder-a-tape.tape1 { top: -10px; left: -18px; transform: rotate(-8deg); }
+.founder-a-tape.tape2 { bottom: -10px; right: -18px; transform: rotate(6deg); }
+.founder-a-caption {
+  position: absolute;
+  bottom: -28px; left: 0;
+  font-family: 'Caveat', cursive;
+  color: var(--mark);
+  font-size: 18px;
+}
+.founder-a-caption .mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .22em;
+  color: var(--mark);
+}
+
+/* Responsive for founders */
+@media (max-width: 900px) {
+  .pipeline-grid { grid-template-columns: 1fr; }
+  .founder-j-main, .founder-a-main { grid-template-columns: 1fr; }
+  .founder-j-photo { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .founder-j-body { padding: 28px 24px; }
+  .founder--aleece { background: var(--paper); }
+  .founder-a-header { padding: 14px 22px; }
+  .founder-a-body { padding: 28px 24px; }
+  .founder-a-photo { margin: 0 24px 40px; }
+  .founder-j-name, .founder-a-name { font-size: 36px; }
+}
+
+/* ========================================================
+   DOSSIER NAV — sticky right side
+   ======================================================== */
+.nav-dots {
+  position: fixed;
+  right: 28px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 12px;
+  background: rgba(240, 235, 224, .9);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+}
+.nav-dots a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  cursor: pointer;
+  /* Brand Guide §11 — widened hit area */
+  min-height: 22px;
+  padding: 4px 2px;
+}
+.nav-dots a:hover { color: var(--ink); }
+.nav-dots a.active { color: var(--stamp); }
+.nav-dots .tick {
+  width: 18px; height: 1px;
+  background: currentColor;
+  transition: width .25s;
+}
+.nav-dots a.active .tick { width: 34px; }
+
+/* Top bar — brand + scroll hint */
+.topbar {
+  position: fixed;
+  top: 20px; left: 20px; right: 20px;
+  z-index: 40;
+  padding: 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  pointer-events: none;
+}
+.topbar > * { pointer-events: auto; }
+.topbar-brand {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 15px;
+  letter-spacing: -.01em;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 10px 16px;
+  border: 1px solid var(--rule);
+  box-shadow: 0 4px 12px rgba(0,0,0,.3);
+}
+.topbar-brand::before {
+  content: '●';
+  color: var(--stamp);
+  font-size: 8px;
+  margin-right: 8px;
+  vertical-align: middle;
+  transform: translateY(-2px);
+  display: inline-block;
+}
+.topbar-middle {
+  justify-self: center;
+  background: rgba(240,235,224,.94);
+  backdrop-filter: blur(6px);
+  padding: 8px 16px;
+  border: 1px solid var(--rule);
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+}
+.topbar-middle .mono { color: var(--ink-soft); font-size: 10px; }
+.topbar-cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  padding: 14px 18px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  box-shadow: 0 4px 12px rgba(0,0,0,.3);
+  text-decoration: none;
+}
+.topbar-cta:hover { background: var(--stamp); border-color: var(--stamp); color: var(--paper); }
+
+/* Reveal — Brand Guide §09 — translateY 24px → 0, --dur-reveal, --ease-out-editorial, 80ms children stagger */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-reveal) var(--ease-out-editorial),
+              transform var(--dur-reveal) var(--ease-out-editorial);
+}
+.reveal.in { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 80ms; }
+.reveal-d2 { transition-delay: 160ms; }
+.reveal-d3 { transition-delay: 240ms; }
+
+/* Small-state transitions — hover / focus / link underlines run --dur-fast */
+.nav-dots a,
+.topbar-cta,
+.work-tile,
+.close-card,
+.lightbox-close {
+  transition: color var(--dur-fast) var(--ease-out-editorial),
+              background-color var(--dur-fast) var(--ease-out-editorial),
+              border-color var(--dur-fast) var(--ease-out-editorial),
+              outline-color var(--dur-fast) var(--ease-out-editorial);
+}
+.nav-dots .tick {
+  transition: width var(--dur-fast) var(--ease-out-editorial);
+}
+
+/* Reduced motion — Brand Guide §09 / §11 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .page { padding: 40px 24px 72px; width: calc(100% - 20px); margin: 32px auto; }
+  .cover { padding: 40px 28px 72px; }
+  .stamp { top: 70px; right: 28px; }
+  .letterhead { grid-template-columns: 1fr 1fr; }
+  .letterhead-right { grid-column: 1/3; text-align: left; font-size: 9px; }
+  .letterhead-mark { order: -1; }
+  .meta-strip { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .cover-foot { grid-template-columns: 1fr; gap: 20px; }
+  .rhythm-grid { grid-template-columns: 1fr 1fr; }
+  .rhythm-week { border-right: none; border-bottom: 1px solid rgba(24,20,15,.15); }
+  .rhythm-aside { grid-template-columns: 1fr; gap: 28px; }
+  .studio-grid { grid-template-columns: 1fr; }
+  .close-grid { grid-template-columns: 1fr; }
+  .close-card { border-right: 0; border-bottom: 1px solid rgba(24,20,15,.15); }
+  .close-foot { grid-template-columns: 1fr; gap: 28px; }
+  .close-foot .address { text-align: left; }
+  .ledger thead th:nth-child(3), .ledger tbody td:nth-child(3) { display: none; }
+  .ledger .cli-name { font-size: 18px; }
+  .ledger tr.details-row .details-inner { grid-template-columns: 1fr; gap: 20px; }
+  .nav-dots { display: none; }
+  .pain { grid-template-columns: 1fr; gap: 20px; padding: 28px 0; }
+  .pain-fix { padding-left: 16px; }
+  .work-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .work-tile .wt-info .wt-name { font-size: 19px; }
+  .lightbox-inner { padding: 48px 24px 56px; }
+  .lb-head { grid-template-columns: 1fr; gap: 12px; }
+  .lb-meta { align-items: flex-start; text-align: left; }
+  .lb-gallery { column-count: 2; column-gap: 8px; }
+  .lb-gallery .lb-shot { margin-bottom: 8px; }
+  .work-foot { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .topbar { top: 12px; left: 12px; right: 12px; gap: 10px; }
+  .topbar-brand { font-size: 13px; padding: 8px 12px; }
+  .topbar-middle { display: none; }
+  .topbar-cta { padding: 12px 14px; font-size: 9px; letter-spacing: .18em; min-height: 44px; }
+  .page-number { left: 28px; bottom: 20px; }
+  .page-stamp { right: 28px; bottom: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">Visual State Studio.</div>
+  <div class="topbar-middle"><span class="mono" id="tb-label">Dossier No. 001 · Page 01</span></div>
+  <a href="#page-07" class="topbar-cta">Start a conversation →</a>
+</div>
+
+<nav class="nav-dots" id="nav-dots" aria-label="Page navigation">
+  <a href="#page-01" data-page="page-01" class="active"><span class="tick"></span><span>01 · Cover</span></a>
+  <a href="#page-02" data-page="page-02"><span class="tick"></span><span>02 · Sound familiar?</span></a>
+  <a href="#page-03" data-page="page-03"><span class="tick"></span><span>03 · Pipeline</span></a>
+  <a href="#page-04" data-page="page-04"><span class="tick"></span><span>04 · Work</span></a>
+  <a href="#page-05" data-page="page-05"><span class="tick"></span><span>05 · Rhythm</span></a>
+  <a href="#page-06" data-page="page-06"><span class="tick"></span><span>06 · Founders</span></a>
+  <a href="#page-07" data-page="page-07"><span class="tick"></span><span>07 · Next step</span></a>
+</nav>
+
+<!-- =================================================== -->
+<!-- PAGE 01 — COVER                                      -->
+<!-- =================================================== -->
+<article class="page cover" id="page-01" data-screen-label="01 Cover">
+  <header class="letterhead">
+    <div class="letterhead-left">Visual State Studio · South-East Melbourne AU</div>
+    <div class="letterhead-mark">Dossier <em>No.</em> 001</div>
+    <div class="letterhead-right">Prepared <em>for:</em> Prospective Clients</div>
+  </header>
+  <div class="rule-thin"></div>
+
+  <div class="stamp">
+    ⚠ Booking remainder<em>of 2026</em>— limited spots
+  </div>
+
+  <div class="cover-hero">
+    <div class="mono cover-kicker reveal">The proposal</div>
+    <h1 class="cover-title reveal reveal-d1">
+      Your business<br>
+      deserves <em>better</em><br>
+      than another<br>
+      iPhone <span class="struck">agency<span class="hand-fix">amateur</span></span>.
+    </h1>
+    <p class="cover-sub reveal reveal-d2">
+      The market's drowning in <em>someone-with-an-iPhone-and-a-gimbal.</em> We're the full pipeline — film, stills, design, web, social and paid media — on a fortnightly rhythm.
+    </p>
+  </div>
+
+  <footer class="cover-foot">
+    <div class="cover-foot-field">
+      <span class="mono">Established</span>
+      <div class="value"><em>2025.</em> South-East Melbourne.</div>
+    </div>
+    <div class="cover-foot-field">
+      <span class="mono">Enclosed</span>
+      <div class="value">The pipeline. The work. The rhythm. The team.</div>
+    </div>
+    <div class="cover-foot-field">
+      <span class="mono">Valid through</span>
+      <div class="value"><em>While coffee is hot.</em></div>
+    </div>
+  </footer>
+
+  <div class="page-number">Page 01 / 07 · Cover</div>
+  <div class="page-stamp">Signed V. State</div>
+</article>
+
+<!-- =================================================== -->
+<!-- PAGE 02 — PAIN POINTS                                -->
+<!-- =================================================== -->
+<article class="page" id="page-02" data-screen-label="02 Pain points">
+  <header class="letterhead">
+    <div class="letterhead-left">Dossier 001 / P. 02</div>
+    <div class="letterhead-mark">Sound <em>familiar?</em></div>
+    <div class="letterhead-right">If any of these sting — keep reading</div>
+  </header>
+
+  <h2 class="pains-heading reveal">Five things you've <em>probably</em> said this month.</h2>
+
+  <div class="pains-list">
+    <div class="pain">
+      <div class="pain-problem">
+        <span class="mono pain-no">Pain 01</span>
+        <p class="pain-quote">&ldquo;Our feed hasn't been updated in <em>three weeks.</em>&rdquo;</p>
+      </div>
+      <div class="pain-fix">
+        <span class="mono">We fix it</span>
+        <p>Fortnightly rhythm. Your feed runs whether you're in the kitchen or on a job site.</p>
+      </div>
+    </div>
+
+    <div class="pain">
+      <div class="pain-problem">
+        <span class="mono pain-no">Pain 02</span>
+        <p class="pain-quote">&ldquo;I'm juggling <em>four different vendors.</em>&rdquo;</p>
+      </div>
+      <div class="pain-fix">
+        <span class="mono">We fix it</span>
+        <p>One studio. One brief. One invoice. Six disciplines under one roof.</p>
+      </div>
+    </div>
+
+    <div class="pain">
+      <div class="pain-problem">
+        <span class="mono pain-no">Pain 03</span>
+        <p class="pain-quote">&ldquo;We paid for a shoot <em>six months ago.</em> Nothing left to post.&rdquo;</p>
+      </div>
+      <div class="pain-fix">
+        <span class="mono">We fix it</span>
+        <p>We don't shoot and vanish. New work goes live every week.</p>
+      </div>
+    </div>
+
+    <div class="pain">
+      <div class="pain-problem">
+        <span class="mono pain-no">Pain 04</span>
+        <p class="pain-quote">&ldquo;Our website looks like <em>2018.</em>&rdquo;</p>
+      </div>
+      <div class="pain-fix">
+        <span class="mono">We fix it</span>
+        <p>We build those too. Same team, same standard as the film.</p>
+      </div>
+    </div>
+
+    <div class="pain">
+      <div class="pain-problem">
+        <span class="mono pain-no">Pain 05</span>
+        <p class="pain-quote">&ldquo;I'm writing captions at <em>11pm.</em> Again.&rdquo;</p>
+      </div>
+      <div class="pain-fix">
+        <span class="mono">We fix it</span>
+        <p>Social included. Copy, scheduling, replies. You go to bed.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pains-kicker">
+    <span class="hand pains-hand">↓ that's the job description</span>
+  </div>
+
+  <div class="page-number">Page 02 / 07 · Pain points</div>
+  <div class="page-stamp">If you nodded — keep going</div>
+</article>
+
+<!-- =================================================== -->
+<!-- PAGE 03 — THE PIPELINE                               -->
+<!-- =================================================== -->
+<article class="page" id="page-03" data-screen-label="03 Pipeline">
+  <header class="letterhead">
+    <div class="letterhead-left">Dossier 001 / P. 03</div>
+    <div class="letterhead-mark">The <em>Pipeline.</em></div>
+    <div class="letterhead-right">Six disciplines · One roof</div>
+  </header>
+
+  <h2 class="clients-heading reveal" style="margin-top:32px;">The whole <em>pipeline,</em> one studio.</h2>
+  <p class="clients-sub reveal reveal-d1">
+    Six disciplines. One team. <em>Zero handoffs.</em>
+  </p>
+
+  <div class="pipeline-grid">
+    <div class="pipeline-tile">
+      <span class="mono pt-no">Service 01</span>
+      <h3>Film &amp; motion.</h3>
+      <p>Campaigns, reels, launch films. Shot, directed, graded, cut.</p>
+      <span class="pt-tag">Core</span>
+    </div>
+    <div class="pipeline-tile">
+      <span class="mono pt-no">Service 02</span>
+      <h3>Photography.</h3>
+      <p>Editorial stills. Menus, rooms, product, people.</p>
+      <span class="pt-tag">Core</span>
+    </div>
+    <div class="pipeline-tile">
+      <span class="mono pt-no">Service 03</span>
+      <h3>Graphic design.</h3>
+      <p>Menus, decks, print — the brand between shoots.</p>
+      <span class="pt-tag">Core</span>
+    </div>
+    <div class="pipeline-tile">
+      <span class="mono pt-no">Service 04</span>
+      <h3>Web design &amp; build.</h3>
+      <p>Brand sites, landing pages, booking flows.</p>
+      <span class="pt-tag">Core</span>
+    </div>
+    <div class="pipeline-tile">
+      <span class="mono pt-no">Service 05</span>
+      <h3>Social management.</h3>
+      <p>Scheduling, copy, stories, replies. Off your plate.</p>
+      <span class="pt-tag">Core</span>
+    </div>
+    <div class="pipeline-tile pipeline-tile--soon">
+      <span class="mono pt-no">Service 06</span>
+      <h3>Paid media.</h3>
+      <p>Meta &amp; Google, built off the content we've already made.</p>
+      <span class="pt-tag pt-tag--soon">Coming soon</span>
+    </div>
+  </div>
+
+  <p class="pipeline-closer"><em>Everything downstream</em> gets better when one team is upstream.</p>
+
+  <div class="page-number">Page 03 / 07 · Pipeline</div>
+  <div class="page-stamp">One team · One brief</div>
+</article>
+
+<!-- =================================================== -->
+<!-- PAGE 04 — THE CLIENTS (visual-first)                 -->
+<!-- =================================================== -->
+<article class="page" id="page-04" data-screen-label="04 Work">
+  <header class="letterhead">
+    <div class="letterhead-left">Dossier 001 / P. 04</div>
+    <div class="letterhead-mark">The <em>Work.</em></div>
+    <div class="letterhead-right">Hospitality · Property · Build</div>
+  </header>
+
+  <h2 class="clients-heading reveal" style="margin-top:32px;">The <em>work.</em></h2>
+  <p class="clients-sub reveal reveal-d1">
+    Six on the book. More behind the curtain.
+  </p>
+
+  <div class="work-grid" id="work-grid">
+    <!-- Tiles injected via JS -->
+  </div>
+
+  <div class="work-foot">
+    <span>Six shown · more on the book</span>
+    <em>Plus one currently warming up.</em>
+  </div>
+
+  <div class="page-number">Page 04 / 07 · Work</div>
+  <div class="page-stamp">Currently on the book</div>
+</article>
+
+<!-- =================================================== -->
+<!-- PAGE 05 — THE RHYTHM                                 -->
+<!-- =================================================== -->
+<article class="page" id="page-05" data-screen-label="05 Rhythm">
+  <header class="letterhead">
+    <div class="letterhead-left">Dossier 001 / P. 05</div>
+    <div class="letterhead-mark">The <em>Rhythm.</em></div>
+    <div class="letterhead-right">Fortnightly · Weekly · Forever</div>
+  </header>
+
+  <h2 class="rhythm-heading reveal" style="margin-top:32px;">A month with <em>Visual State.</em></h2>
+  <p class="rhythm-lead reveal reveal-d1">
+    Most agencies shoot once and vanish. <em>We publish every week.</em>
+  </p>
+
+  <div class="rhythm-grid">
+    <div class="rhythm-week">
+      <span class="mono wk-no">Week 01</span>
+      <h3>Shoot.</h3>
+      <ul>
+        <li>Half-day on site</li>
+        <li>Stills &amp; motion, one crew</li>
+      </ul>
+      <div class="rhythm-note">we bring the coffees</div>
+    </div>
+    <div class="rhythm-week">
+      <span class="mono wk-no">Week 02</span>
+      <h3>Publish.</h3>
+      <ul>
+        <li>3–4 posts live</li>
+        <li>Approved from your phone</li>
+      </ul>
+    </div>
+    <div class="rhythm-week">
+      <span class="mono wk-no">Week 03</span>
+      <h3>Shoot again.</h3>
+      <ul>
+        <li>New menu. New drop.</li>
+        <li>Two hours on site</li>
+      </ul>
+    </div>
+    <div class="rhythm-week">
+      <span class="mono wk-no">Week 04</span>
+      <h3>Publish.</h3>
+      <ul>
+        <li>3–4 more posts live</li>
+        <li>Numbers. Next month begins.</li>
+      </ul>
+      <div class="rhythm-note" style="transform: rotate(-3deg); top: auto; bottom: 16px; right: 16px;">not a shoot. a rhythm.</div>
+    </div>
+  </div>
+
+  <p class="pipeline-closer">You stop thinking about content. <em>We don't stop making it.</em></p>
+
+  <div class="page-number">Page 05 / 07 · Rhythm</div>
+  <div class="page-stamp">Proven in production</div>
+</article>
+
+<!-- =================================================== -->
+<!-- PAGE 06 — THE FOUNDERS                               -->
+<!-- =================================================== -->
+<article class="page" id="page-06" data-screen-label="06 Founders">
+  <header class="letterhead">
+    <div class="letterhead-left">Dossier 001 / P. 06</div>
+    <div class="letterhead-mark">The <em>Founders.</em></div>
+    <div class="letterhead-right">Two obsessives · One studio</div>
+  </header>
+
+  <h2 class="studio-heading reveal" style="margin-top:32px;">Two obsessives. <em>One studio.</em></h2>
+
+  <!-- Founder cards — custom-designed per founder -->
+  <div class="founders-wrap">
+
+    <!-- JOSEPH — Technical spec-sheet / car-guy / gearhead card -->
+    <section class="founder founder--joseph">
+      <div class="founder-j-slate">
+        <div class="founder-j-slate-row">
+          <span class="mono">Founder 01</span>
+          <span class="mono">VS / F-001 / DSV</span>
+        </div>
+        <div class="founder-j-slate-row">
+          <span class="mono">Role</span>
+          <span class="mono">Creative Director</span>
+        </div>
+      </div>
+
+      <div class="founder-j-main">
+        <div class="founder-j-photo">
+          <img src="assets/about/joseph.jpg" alt="Portrait of Joseph De Silva — founder and director at Visual State Studio, Melbourne" loading="lazy">
+          <div class="founder-j-corner tl"></div>
+          <div class="founder-j-corner tr"></div>
+          <div class="founder-j-corner bl"></div>
+          <div class="founder-j-corner br"></div>
+          <div class="founder-j-label mono">Subject · J.DSV</div>
+        </div>
+
+        <div class="founder-j-body">
+          <h3 class="founder-j-name">Joseph <em>De Silva</em></h3>
+          <span class="mono founder-j-role">Founder / Creative Director</span>
+
+          <ul class="founder-j-specs">
+            <li><span class="mono">Make</span><span>Car guy</span></li>
+            <li><span class="mono">Model</span><span>Gamer</span></li>
+            <li><span class="mono">Fuel</span><span>Film obsessive</span></li>
+            <li><span class="mono">Order</span><span><em>Always the burger</em></span></li>
+            <li><span class="mono">Shift</span><span>Edits til 4am</span></li>
+            <li><span class="mono">Call time</span><span>On location 6am</span></li>
+          </ul>
+
+          <p class="founder-j-bio">
+            Seven years behind the camera in commercial automotive before turning that obsessive eye on hospitality. <em>1% better every day.</em>
+          </p>
+
+          <div class="founder-j-foot">
+            <span class="studio-sig">— J. De Silva</span>
+            <span class="mono founder-j-stamp">± 1% / day</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALEECE — Ruled ledger / accountant's book / bookworm card -->
+    <section class="founder founder--aleece">
+      <div class="founder-a-header">
+        <div class="founder-a-header-left">
+          <span class="mono">Founder 02</span>
+          <span class="mono">Folio A / Entry 001</span>
+        </div>
+        <div class="founder-a-header-right">
+          <span class="mono">Ruled &amp; reconciled</span>
+        </div>
+      </div>
+
+      <div class="founder-a-main">
+        <div class="founder-a-body">
+          <h3 class="founder-a-name">Aleece <em>Sorraghan</em></h3>
+          <span class="mono founder-a-role">Founder / Lead Photographer</span>
+
+          <div class="founder-a-entries">
+            <div class="founder-a-entry"><span class="mono">Entry 01</span><span>Car girl.</span></div>
+            <div class="founder-a-entry"><span class="mono">Entry 02</span><span>Bookworm.</span></div>
+            <div class="founder-a-entry"><span class="mono">Entry 03</span><span><em>Accountant turned creative.</em></span></div>
+            <div class="founder-a-entry"><span class="mono">Entry 04</span><span>Detail driven (the accounting never fully leaves).</span></div>
+            <div class="founder-a-entry"><span class="mono">Entry 05</span><span>Will never say no to Sri Lankan food.</span></div>
+          </div>
+
+          <p class="founder-a-bio">
+            Accountant by training. <em>Co-founder &amp; lead photographer</em> by choice. The accounting never fully leaves — which turns out to be the point.
+          </p>
+
+          <div class="founder-a-foot">
+            <span class="studio-sig">— A. Sorraghan</span>
+            <span class="mono founder-a-stamp">Reconciled</span>
+          </div>
+        </div>
+
+        <div class="founder-a-photo">
+          <img src="assets/about/aleece.jpg" alt="Portrait of Aleece Sorraghan — founder and brand lead at Visual State Studio, Melbourne" loading="lazy">
+          <div class="founder-a-tape tape1"></div>
+          <div class="founder-a-tape tape2"></div>
+          <div class="founder-a-caption">
+            <span class="mono">Plate — Fig. 02</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="studio-quote">
+      Joseph trained his eye on seven-figure cars. Aleece trained hers on seven-figure books. Nothing ships unless it's right — the frame, the crop, <em>the invoice</em>, all of it.
+    </div>
+  </div>
+
+  <div class="page-number">Page 06 / 07 · Founders</div>
+  <div class="page-stamp">Signed by both</div>
+</article>
+
+<!-- =================================================== -->
+<!-- PAGE 07 — NEXT STEP                                  -->
+<!-- =================================================== -->
+<article class="page" id="page-07" data-screen-label="07 Next step">
+  <header class="letterhead">
+    <div class="letterhead-left">Dossier 001 / P. 07</div>
+    <div class="letterhead-mark">Next <em>step.</em></div>
+    <div class="letterhead-right">Three ways in · Pick one</div>
+  </header>
+
+  <h2 class="close-heading reveal" style="margin-top:32px;">Ready when <em>you are.</em></h2>
+  <p class="close-sub reveal reveal-d1">
+    Pick a way in below. Fifteen minutes is all it takes to know if we're the right fit — and we'll be straight with you either way.
+  </p>
+
+  <div class="close-grid">
+    <a href="https://calendly.com/team-visualstate/new-meeting" target="_blank" rel="noopener noreferrer" class="close-card">
+      <span class="mono cc-no">Option 01</span>
+      <h3>Book a call.</h3>
+      <p class="cc-detail">Fifteen minutes. On a Tuesday.</p>
+      <span class="cc-cta">Open the calendar</span>
+    </a>
+    <a href="mailto:team@visualstate.studio" class="close-card">
+      <span class="mono cc-no">Option 02</span>
+      <h3>Send us an email.</h3>
+      <p class="cc-detail">Reply within one business day.</p>
+      <span class="cc-cta">team@visualstate.studio</span>
+    </a>
+    <a href="https://instagram.com/visualstate.studio" target="_blank" rel="noreferrer" class="close-card">
+      <span class="mono cc-no">Option 03</span>
+      <h3>Slide into the DMs.</h3>
+      <p class="cc-detail">No formality required.</p>
+      <span class="cc-cta">@visualstate.studio</span>
+    </a>
+  </div>
+
+  <footer class="close-foot">
+    <div class="sig-block">
+      <div class="sig-line"></div>
+      <div class="sig-name">Joseph &amp; Aleece</div>
+      <div class="sig-title">The Studio · Signed this page</div>
+    </div>
+    <div class="address">
+      <span class="mono">Visual State Studio</span>
+      <p>South-East Melbourne, VIC<br>Australia · Since 2025</p>
+      <span class="mono">ABN · 97 874 036 938</span>
+    </div>
+  </footer>
+
+  <div class="page-number">Page 07 / 07 · Close</div>
+  <div class="page-stamp">End of dossier</div>
+</article>
+
+<!-- Client tile data -->
+<script id="clients-data" type="application/json">
+[
+  {
+    "id": "circa",
+    "no": "01",
+    "name": "Circa <em>1884.</em>",
+    "industry": "Cocktail bar",
+    "result": "On retainer · <strong>2 months</strong>",
+    "slate": "S.01 · CIRCA · 50MM",
+    "page": "PG.12",
+    "hero": "assets/circa/01.jpg",
+    "shots": [
+      {"src":"assets/circa/01.jpg","size":"hero"},
+      {"src":"assets/circa/02.jpg","size":"tall"},
+      {"src":"assets/circa/03.jpg","size":"reg"},
+      {"src":"assets/circa/04.jpg","size":"reg"},
+      {"src":"assets/circa/05.jpg","size":"wide"},
+      {"src":"assets/circa/06.jpg","size":"reg"}
+    ]
+  },
+  {
+    "id": "pearl",
+    "no": "02",
+    "name": "Pearl by <em>P &amp; D.</em>",
+    "industry": "Sri Lankan · fine dining",
+    "result": "On retainer · <strong>2.5 months</strong>",
+    "slate": "S.02 · PEARL · 85MM",
+    "page": "PG.24",
+    "hero": "assets/pearl/01.jpg",
+    "shots": [
+      {"src":"assets/pearl/01.jpg","size":"hero"},
+      {"src":"assets/pearl/02.jpg","size":"tall"},
+      {"src":"assets/pearl/03.jpg","size":"reg"},
+      {"src":"assets/pearl/04.jpg","size":"reg"},
+      {"src":"assets/pearl/05.jpg","size":"wide"},
+      {"src":"assets/pearl/06.jpg","size":"reg"}
+    ]
+  },
+  {
+    "id": "tommy",
+    "no": "03",
+    "name": "Tommy <em>Two Buns.</em>",
+    "industry": "Pop-up burgers",
+    "result": "<strong>Two</strong> project shoots",
+    "slate": "S.03 · TTB · 35MM",
+    "page": "PG.42",
+    "hero": "assets/tommy/01.jpg",
+    "shots": [
+      {"src":"assets/tommy/01.jpg","size":"hero"},
+      {"src":"assets/tommy/02.jpg","size":"tall"},
+      {"src":"assets/tommy/03.jpg","size":"reg"},
+      {"src":"assets/tommy/04.jpg","size":"reg"},
+      {"src":"assets/tommy/05.jpg","size":"wide"},
+      {"src":"assets/tommy/06.jpg","size":"reg"}
+    ]
+  },
+  {
+    "id": "hoops",
+    "no": "04",
+    "name": "Hoops <em>Culture.</em>",
+    "industry": "Basketball training",
+    "result": "<strong>Two</strong> project shoots",
+    "slate": "S.04 · HOOPS · 24MM",
+    "page": "PG.56",
+    "hero": "assets/hoops/01.jpg",
+    "shots": [
+      {"src":"assets/hoops/01.jpg","size":"hero"},
+      {"src":"assets/hoops/02.jpg","size":"tall"},
+      {"src":"assets/hoops/03.jpg","size":"reg"},
+      {"src":"assets/hoops/04.jpg","size":"reg"},
+      {"src":"assets/hoops/05.jpg","size":"wide"},
+      {"src":"assets/hoops/06.jpg","size":"reg"}
+    ]
+  },
+  {
+    "id": "mocha",
+    "no": "05",
+    "name": "Mocha <em>Finance.</em>",
+    "industry": "Brokerage",
+    "result": "On retainer · <strong>1 month</strong>",
+    "slate": "S.05 · MOCHA · 50MM",
+    "page": "PG.68",
+    "hero": "assets/mocha/01.jpg",
+    "shots": [
+      {"src":"assets/mocha/01.jpg","size":"hero"},
+      {"src":"assets/mocha/02.jpg","size":"tall"},
+      {"src":"assets/mocha/03.jpg","size":"reg"},
+      {"src":"assets/mocha/04.jpg","size":"reg"}
+    ]
+  },
+  {
+    "id": "fivefarms",
+    "no": "06",
+    "name": "Five <em>Farms.</em>",
+    "industry": "Local cafe",
+    "result": "On retainer · <strong>2 months</strong>",
+    "slate": "S.06 · 5F · 35MM",
+    "page": "PG.78",
+    "hero": "assets/fivefarms/01.jpg",
+    "shots": [
+      {"src":"assets/fivefarms/01.jpg","size":"hero"},
+      {"src":"assets/fivefarms/02.jpg","size":"tall"},
+      {"src":"assets/fivefarms/03.jpg","size":"reg"},
+      {"src":"assets/fivefarms/04.jpg","size":"reg"}
+    ]
+  },
+  {
+    "id": "hrhomestyle",
+    "no": "07",
+    "name": "HR <em>Homestyle.</em>",
+    "industry": "Luxury renovations",
+    "result": "On retainer · <strong>1 month</strong>",
+    "slate": "S.07 · HR · 24MM",
+    "page": "PG.88",
+    "hero": "assets/hr-homestyle/01.jpg",
+    "shots": [
+      {"src":"assets/hr-homestyle/01.jpg","size":"hero"},
+      {"src":"assets/hr-homestyle/02.jpg","size":"tall"},
+      {"src":"assets/hr-homestyle/03.jpg","size":"reg"},
+      {"src":"assets/hr-homestyle/04.jpg","size":"reg"},
+      {"src":"assets/hr-homestyle/05.jpg","size":"wide"}
+    ]
+  },
+  {
+    "id": "reesgroup",
+    "no": "08",
+    "name": "Rees <em>Group.</em>",
+    "industry": "Accounting",
+    "result": "Campaign · <strong>Single shoot</strong>",
+    "slate": "S.08 · REES · 50MM",
+    "page": "PG.94",
+    "hero": "assets/rees-group/01.jpg",
+    "shots": [
+      {"src":"assets/rees-group/01.jpg","size":"hero"},
+      {"src":"assets/rees-group/02.jpg","size":"tall"},
+      {"src":"assets/rees-group/03.jpg","size":"reg"},
+      {"src":"assets/rees-group/04.jpg","size":"reg"},
+      {"src":"assets/rees-group/05.jpg","size":"wide"},
+      {"src":"assets/rees-group/06.jpg","size":"reg"}
+    ]
+  },
+  {
+    "id": "dhf",
+    "no": "09",
+    "name": "<em>DHF.</em>",
+    "industry": "Automotive",
+    "result": "Campaign · <strong>Single shoot</strong>",
+    "slate": "S.09 · DHF · 35MM",
+    "page": "PG.102",
+    "hero": "assets/dhf/01.jpg",
+    "shots": [
+      {"src":"assets/dhf/01.jpg","size":"hero"},
+      {"src":"assets/dhf/02.jpg","size":"tall"},
+      {"src":"assets/dhf/03.jpg","size":"reg"},
+      {"src":"assets/dhf/04.jpg","size":"reg"},
+      {"src":"assets/dhf/05.jpg","size":"wide"},
+      {"src":"assets/dhf/06.jpg","size":"reg"}
+    ]
+  },
+  {
+    "id": "migration",
+    "no": "10",
+    "name": "Migration <em>Project.</em>",
+    "industry": "Clothing",
+    "result": "Campaign · <strong>Single shoot</strong>",
+    "slate": "S.10 · MGRN · 35MM",
+    "page": "PG.110",
+    "hero": "assets/migration-project/01.jpg",
+    "shots": [
+      {"src":"assets/migration-project/01.jpg","size":"hero"},
+      {"src":"assets/migration-project/02.jpg","size":"tall"},
+      {"src":"assets/migration-project/03.jpg","size":"reg"},
+      {"src":"assets/migration-project/04.jpg","size":"reg"},
+      {"src":"assets/migration-project/05.jpg","size":"wide"}
+    ]
+  },
+  {
+    "id": "444racing",
+    "no": "11",
+    "name": "444 <em>Racing.</em>",
+    "industry": "Clothing",
+    "result": "Campaign · <strong>Single shoot</strong>",
+    "slate": "S.11 · 444 · 85MM",
+    "page": "PG.118",
+    "hero": "assets/444-racing/01.jpg",
+    "shots": [
+      {"src":"assets/444-racing/01.jpg","size":"hero"},
+      {"src":"assets/444-racing/02.jpg","size":"tall"},
+      {"src":"assets/444-racing/03.jpg","size":"reg"}
+    ]
+  }
+]
+</script>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lb-title" aria-hidden="true">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lb-close" aria-label="Close">✕</button>
+    <div class="lb-head">
+      <div>
+        <span class="lb-kicker" id="lb-kicker"></span>
+        <div class="lb-title" id="lb-title"></div>
+      </div>
+      <div class="lb-meta">
+        <span class="mono">Engagement</span>
+        <span class="val" id="lb-result"></span>
+      </div>
+    </div>
+    <div class="lb-gallery" id="lb-gallery"></div>
+    <div class="lb-foot">
+      <span>Shot, graded &amp; delivered in-house · Visual State Studio</span>
+      <em>More of this client on request.</em>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// Build client reel cards (talent-folio style) + lightbox
+// ============================================================
+(() => {
+  const data = JSON.parse(document.getElementById('clients-data').textContent);
+  const grid = document.getElementById('work-grid');
+  if (!grid) return;
+  data.forEach(c => {
+    const tile = document.createElement('a');
+    tile.className = 'work-tile';
+    tile.href = '#';
+    tile.dataset.id = c.id;
+    tile.innerHTML = `
+      <div class="wt-slate">
+        <span>${c.slate}</span>
+        <span class="wt-stamp-mini">Approved</span>
+      </div>
+      <div class="wt-ph">
+        <img src="${c.hero}" alt="${c.name.replace(/<[^>]+>/g,'').replace(/\.$/, '')} — ${c.industry} — cover still shot by Visual State Studio" loading="lazy">
+        <span class="wt-expand">See folio →</span>
+      </div>
+      <div class="wt-info">
+        <span class="wt-name">${c.name}</span>
+        <span class="wt-pg">${c.page}</span>
+      </div>
+      <div class="wt-row2">
+        <span>${c.industry}</span>
+        <span>${c.result}</span>
+      </div>
+    `;
+    tile.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLightbox(c, tile);
+    });
+    grid.appendChild(tile);
+  });
+
+  // Lightbox logic
+  const lb = document.getElementById('lightbox');
+  const lbKicker = document.getElementById('lb-kicker');
+  const lbTitle = document.getElementById('lb-title');
+  const lbResult = document.getElementById('lb-result');
+  const lbGallery = document.getElementById('lb-gallery');
+  const lbClose = document.getElementById('lb-close');
+  let lastLightboxTrigger = null;
+
+  function openLightbox(c, trigger) {
+    lastLightboxTrigger = trigger || null;
+    lbKicker.textContent = `${c.slate} · ${c.page}`;
+    lbTitle.innerHTML = c.name;
+    lbResult.innerHTML = c.result;
+    const cleanName = c.name.replace(/<[^>]+>/g,'').replace(/\.$/, '');
+    lbGallery.innerHTML = c.shots.map((s, i) => `
+      <figure class="lb-shot s-${s.size}">
+        <img src="${s.src}" alt="${cleanName} — ${c.industry} — frame ${i + 1} of the shoot, shot &amp; graded by Visual State Studio" loading="lazy">
+      </figure>
+    `).join('');
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lb-open');
+    lb.scrollTop = 0;
+    lbClose.focus();
+  }
+  function closeLightbox() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lb-open');
+    if (lastLightboxTrigger) {
+      lastLightboxTrigger.focus();
+    }
+  }
+  lbClose.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.classList.contains('open')) closeLightbox(); });
+})();
+
+// ============================================================
+// Nav dots — active page tracking + click-to-jump
+// ============================================================
+const pages = [...document.querySelectorAll('.page')];
+const dots = [...document.querySelectorAll('.nav-dots a')];
+const tbLabel = document.getElementById('tb-label');
+const PAGE_TITLES = { 'page-01': 'Cover', 'page-02': 'Pain points', 'page-03': 'Pipeline', 'page-04': 'Work', 'page-05': 'Rhythm', 'page-06': 'Founders', 'page-07': 'Next step' };
+
+dots.forEach(d => d.addEventListener('click', (e) => {
+  e.preventDefault();
+  const id = d.dataset.page;
+  const target = document.getElementById(id);
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}));
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting && en.intersectionRatio > 0.3) {
+      const id = en.target.id;
+      dots.forEach(d => d.classList.toggle('active', d.dataset.page === id));
+      const pNo = String(pages.findIndex(p => p.id === id) + 1).padStart(2, '0');
+      tbLabel.textContent = `Dossier No. 001 · Page ${pNo} · ${PAGE_TITLES[id] || ''}`;
+    }
+  });
+}, { threshold: [0, 0.3, 0.6] });
+pages.forEach(p => io.observe(p));
+
+// ============================================================
+// Reveal on scroll
+// ============================================================
+const revealIo = new IntersectionObserver(entries => {
+  entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('in'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => revealIo.observe(el));
+
+// Arrow-key page navigation
+document.addEventListener('keydown', e => {
+  const active = dots.find(d => d.classList.contains('active'));
+  const idx = dots.indexOf(active);
+  if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+    e.preventDefault();
+    const next = dots[Math.min(dots.length - 1, idx + 1)];
+    if (next) next.click();
+  } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+    e.preventDefault();
+    const prev = dots[Math.max(0, idx - 1)];
+    if (prev) prev.click();
+  }
+});
+</script>
+</body>
+</html>
