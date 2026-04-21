@@ -7,21 +7,21 @@
 <meta name="theme-color" content="#1E1A14">
 
 <title>Visual State Studio — the full pipeline: film, stills, design, web</title>
-<meta name="description" content="South-East Melbourne studio running the full pipeline — film, stills, design, web, social and paid media — on a fortnightly rhythm. One brief, one invoice, one studio.">
+<meta name="description" content="South-East Melbourne studio running the full pipeline — film, stills, design, web, social posting, paid media and AI integration — on a fortnightly rhythm. One brief, one invoice, one studio.">
 <link rel="canonical" href="https://visualstate.studio/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://visualstate.studio/">
 <meta property="og:title" content="Visual State Studio — the full pipeline: film, stills, design, web">
-<meta property="og:description" content="One studio, six disciplines, fortnightly rhythm. Film, stills, design, web, social and paid media out of South-East Melbourne.">
+<meta property="og:description" content="One studio, six disciplines, fortnightly rhythm. Film, stills, design, web, social posting and paid media out of South-East Melbourne.">
 <meta property="og:image" content="https://visualstate.studio/assets/circa/01.jpg">
 <meta property="og:site_name" content="Visual State Studio">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Visual State Studio — the full pipeline: film, stills, design, web">
-<meta name="twitter:description" content="One studio, six disciplines, fortnightly rhythm. Film, stills, design, web, social and paid media out of South-East Melbourne.">
+<meta name="twitter:description" content="One studio, six disciplines, fortnightly rhythm. Film, stills, design, web, social posting and paid media out of South-East Melbourne.">
 <meta name="twitter:image" content="https://visualstate.studio/assets/circa/01.jpg">
 
 <!-- Favicons -->
@@ -49,7 +49,7 @@
   "name": "Visual State Studio",
   "url": "https://visualstate.studio/",
   "logo": "https://visualstate.studio/assets/favicon/favicon-512x512.png",
-  "description": "Full-pipeline creative studio — film, stills, design, web, social and paid media. South-East Melbourne.",
+  "description": "Full-pipeline creative studio — film, stills, design, web, social posting, paid media and AI integration. South-East Melbourne.",
   "foundingDate": "2025",
   "founders": [
     { "@type": "Person", "name": "Joseph De Silva" },
@@ -663,10 +663,12 @@ em { font-style: italic; }
   padding: 36px 28px 40px;
   border-right: 1px solid rgba(24,20,15,.15);
   cursor: pointer;
-  transition: background .2s;
+  transition: background var(--dur-fast) var(--ease-out-editorial);
   text-decoration: none;
   color: inherit;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .close-card:last-child { border-right: 0; }
 .close-card:hover { background: rgba(181,58,42,.05); }
@@ -685,19 +687,54 @@ em { font-style: italic; }
   font-size: 14px;
   line-height: 1.5;
   color: var(--ink-soft);
-  margin-bottom: 18px;
+  margin-bottom: 22px;
+  flex: 1;
 }
+/* close-card CTA — now a visible chip. Variant primary/secondary handled via parent mod class. */
 .close-card .cc-cta {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   letter-spacing: .22em;
   text-transform: uppercase;
-  color: var(--stamp);
+  font-weight: 500;
+  padding: 14px 22px;
+  min-height: 44px;
   display: inline-flex;
   gap: 10px;
   align-items: center;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  transition:
+    transform var(--dur-fast) var(--ease-out-editorial),
+    background-color var(--dur-fast) var(--ease-out-editorial),
+    color var(--dur-fast) var(--ease-out-editorial),
+    box-shadow var(--dur-fast) var(--ease-out-editorial);
 }
-.close-card .cc-cta::after { content: '→'; }
+.close-card .cc-cta::after {
+  content: '→';
+  transition: transform var(--dur-fast) var(--ease-out-editorial);
+}
+.close-card:hover .cc-cta {
+  background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-2px);
+}
+.close-card:hover .cc-cta::after { transform: translateX(3px); }
+/* Primary variant — Option 01 "Book a call" */
+.close-card--primary .cc-cta {
+  background: var(--stamp);
+  color: var(--paper);
+  border-color: var(--stamp);
+  box-shadow: 0 4px 12px rgba(181,58,42,.28), 0 2px 0 rgba(24,20,15,.15);
+}
+.close-card--primary:hover .cc-cta {
+  background: var(--stamp);
+  color: var(--paper);
+  border-color: var(--stamp);
+  filter: brightness(.92) saturate(1.05);
+  box-shadow: 0 8px 20px rgba(181,58,42,.4), 0 3px 0 rgba(24,20,15,.2);
+}
 
 .close-foot {
   display: grid;
@@ -1106,6 +1143,44 @@ body.lb-open { overflow: hidden; }
 .pipeline-tile--soon { background: rgba(24,20,15,.03); }
 .pipeline-tile .pt-tag--soon { color: var(--stamp); border-color: var(--stamp); }
 
+/* NEW service card — AI integration, with rotated stamp overlay */
+.pipeline-tile--new {
+  background: rgba(181,58,42,.04);
+  position: relative;
+}
+.pipeline-tile .pt-tag--new {
+  color: var(--stamp);
+  border-color: var(--stamp);
+  background: rgba(181,58,42,.06);
+}
+.pipeline-tile .pt-stamp-new {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  padding: 6px 12px 7px;
+  border: 2px solid var(--stamp);
+  color: var(--stamp);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transform: rotate(-6deg);
+  background: rgba(240,235,224,.92);
+  box-shadow: 0 0 0 1px var(--stamp), inset 0 0 0 2px rgba(181,58,42,.1);
+  pointer-events: none;
+  line-height: 1;
+  z-index: 2;
+}
+.pipeline-tile .pt-stamp-new::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: radial-gradient(ellipse, transparent 55%, rgba(181,58,42,.18));
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
 /* ========================================================
    PAGE 05 — FOUNDERS (custom per founder)
    ======================================================== */
@@ -1297,7 +1372,7 @@ body.lb-open { overflow: hidden; }
   grid-template-columns: 100px 1fr;
   gap: 16px;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(24,20,15,.12);
+  /* Ruled ledger background already provides horizontal separators — no per-entry border */
   align-items: baseline;
 }
 .founder-a-entry .mono { color: var(--mark); font-size: 9px; }
@@ -1467,22 +1542,129 @@ body.lb-open { overflow: hidden; }
   box-shadow: 0 4px 12px rgba(0,0,0,.25);
 }
 .topbar-middle .mono { color: var(--ink-soft); font-size: 10px; }
+/* ---------- BUTTON EMPHASIS SYSTEM (3 tiers, per Brand Guide §08) ---------- */
+/* Primary — solid --stamp fill, --paper label, arrow. Used for "Book a call". */
+.btn-primary,
 .topbar-cta {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   letter-spacing: .22em;
   text-transform: uppercase;
-  padding: 14px 18px;
+  font-weight: 500;
+  padding: 16px 24px;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+  gap: 10px;
+  background: var(--stamp);
+  color: var(--paper);
+  border: 1px solid var(--stamp);
+  box-shadow: 0 4px 12px rgba(181,58,42,.28), 0 2px 0 rgba(24,20,15,.15);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease-out-editorial),
+    background-color var(--dur-fast) var(--ease-out-editorial),
+    border-color var(--dur-fast) var(--ease-out-editorial),
+    box-shadow var(--dur-fast) var(--ease-out-editorial),
+    filter var(--dur-fast) var(--ease-out-editorial);
+}
+.btn-primary::after,
+.topbar-cta::after {
+  content: '→';
+  font-family: 'JetBrains Mono', monospace;
+  transition: transform var(--dur-fast) var(--ease-out-editorial);
+}
+/* Suppress ::after arrow when topbar-cta already includes a literal arrow in its label */
+.topbar-cta[data-arrow="none"]::after { content: none; }
+
+.btn-primary:hover,
+.topbar-cta:hover {
+  background: var(--stamp);
+  border-color: var(--stamp);
+  color: var(--paper);
+  transform: translateY(-2px);
+  filter: brightness(.92) saturate(1.05);
+  box-shadow: 0 8px 20px rgba(181,58,42,.4), 0 3px 0 rgba(24,20,15,.2);
+}
+.btn-primary:hover::after,
+.topbar-cta:hover::after { transform: translateX(3px); }
+.btn-primary:active,
+.topbar-cta:active { transform: translateY(0); }
+
+/* Secondary — outlined, transparent default, fills on hover. */
+.btn-secondary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 14px 22px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease-out-editorial),
+    background-color var(--dur-fast) var(--ease-out-editorial),
+    color var(--dur-fast) var(--ease-out-editorial);
+}
+.btn-secondary::after {
+  content: '→';
+  font-family: 'JetBrains Mono', monospace;
+  transition: transform var(--dur-fast) var(--ease-out-editorial);
+}
+.btn-secondary:hover {
   background: var(--ink);
   color: var(--paper);
-  border: 1px solid var(--ink);
-  box-shadow: 0 4px 12px rgba(0,0,0,.3);
-  text-decoration: none;
+  transform: translateY(-2px);
 }
-.topbar-cta:hover { background: var(--stamp); border-color: var(--stamp); color: var(--paper); }
+.btn-secondary:hover::after { transform: translateX(3px); }
+.btn-secondary:active { transform: translateY(0); }
+
+/* Tertiary — utility pill: no fill, hover underlines, subtle lift. */
+.btn-tertiary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 8px 4px;
+  min-height: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--ink);
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  transition:
+    transform var(--dur-fast) var(--ease-out-editorial),
+    color var(--dur-fast) var(--ease-out-editorial);
+}
+.btn-tertiary::after {
+  content: '';
+  position: absolute;
+  left: 4px; right: 4px;
+  bottom: 4px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-fast) var(--ease-out-editorial);
+}
+.btn-tertiary:hover { transform: translateY(-1px); color: var(--stamp); }
+.btn-tertiary:hover::after { transform: scaleX(1); }
+@media (max-width: 768px) {
+  .btn-tertiary { min-height: 44px; padding: 12px 8px; }
+}
 
 /* Reveal — Brand Guide §09 — translateY 24px → 0, --dur-reveal, --ease-out-editorial, 80ms children stagger */
 .reveal {
@@ -1496,11 +1678,10 @@ body.lb-open { overflow: hidden; }
 .reveal-d2 { transition-delay: 160ms; }
 .reveal-d3 { transition-delay: 240ms; }
 
-/* Small-state transitions — hover / focus / link underlines run --dur-fast */
+/* Small-state transitions — hover / focus / link underlines run --dur-fast
+   (topbar-cta / btn-* handle their own multi-prop transitions above — don't override) */
 .nav-dots a,
-.topbar-cta,
 .work-tile,
-.close-card,
 .lightbox-close {
   transition: color var(--dur-fast) var(--ease-out-editorial),
               background-color var(--dur-fast) var(--ease-out-editorial),
@@ -1733,14 +1914,14 @@ body.lb-open { overflow: hidden; }
 <div class="topbar">
   <div class="topbar-brand">Visual State Studio.</div>
   <div class="topbar-middle"><span class="mono" id="tb-label">Dossier No. 001 · Page 01</span></div>
-  <a href="#page-07" class="topbar-cta">Start a conversation →</a>
+  <a href="#page-07" class="topbar-cta" data-arrow="none">Start a conversation →</a>
 </div>
 
 <nav class="nav-dots" id="nav-dots" aria-label="Page navigation">
   <a href="#page-01" data-page="page-01" class="active"><span class="tick"></span><span>01 · Cover</span></a>
-  <a href="#page-02" data-page="page-02"><span class="tick"></span><span>02 · Sound familiar?</span></a>
-  <a href="#page-03" data-page="page-03"><span class="tick"></span><span>03 · Pipeline</span></a>
-  <a href="#page-04" data-page="page-04"><span class="tick"></span><span>04 · Work</span></a>
+  <a href="#page-02" data-page="page-02"><span class="tick"></span><span>02 · Work</span></a>
+  <a href="#page-03" data-page="page-03"><span class="tick"></span><span>03 · Sound familiar?</span></a>
+  <a href="#page-04" data-page="page-04"><span class="tick"></span><span>04 · Pipeline</span></a>
   <a href="#page-05" data-page="page-05"><span class="tick"></span><span>05 · Rhythm</span></a>
   <a href="#page-06" data-page="page-06"><span class="tick"></span><span>06 · Founders</span></a>
   <a href="#page-07" data-page="page-07"><span class="tick"></span><span>07 · Next step</span></a>
@@ -1770,7 +1951,7 @@ body.lb-open { overflow: hidden; }
       iPhone <span class="struck">agency<span class="hand-fix">amateur</span></span>.
     </h1>
     <p class="cover-sub reveal reveal-d2">
-      The market's drowning in <em>someone-with-an-iPhone-and-a-gimbal.</em> We're the full pipeline — film, stills, design, web, social and paid media — on a fortnightly rhythm.
+      The market's drowning in <em>someone-with-an-iPhone-and-a-gimbal.</em> We're the full pipeline — film, stills, design, web, social posting and paid media — on a fortnightly rhythm.
     </p>
   </div>
 
@@ -1794,11 +1975,39 @@ body.lb-open { overflow: hidden; }
 </article>
 
 <!-- =================================================== -->
-<!-- PAGE 02 — PAIN POINTS                                -->
+<!-- PAGE 02 — THE CLIENTS (visual-first)                 -->
 <!-- =================================================== -->
-<article class="page" id="page-02" data-screen-label="02 Pain points">
+<article class="page" id="page-02" data-screen-label="02 Work">
   <header class="letterhead">
     <div class="letterhead-left">Dossier 001 / P. 02</div>
+    <div class="letterhead-mark">The <em>Work.</em></div>
+    <div class="letterhead-right">Hospitality · Property · Build</div>
+  </header>
+
+  <h2 class="clients-heading reveal" style="margin-top:32px;">The <em>work.</em></h2>
+  <p class="clients-sub reveal reveal-d1">
+    Six on the book. More behind the curtain.
+  </p>
+
+  <div class="work-grid" id="work-grid">
+    <!-- Tiles injected via JS -->
+  </div>
+
+  <div class="work-foot">
+    <span>Six shown · more on the book</span>
+    <em>Plus one currently warming up.</em>
+  </div>
+
+  <div class="page-number">Page 02 / 07 · Work</div>
+  <div class="page-stamp">Currently on the book</div>
+</article>
+
+<!-- =================================================== -->
+<!-- PAGE 03 — PAIN POINTS                                -->
+<!-- =================================================== -->
+<article class="page" id="page-03" data-screen-label="03 Pain points">
+  <header class="letterhead">
+    <div class="letterhead-left">Dossier 001 / P. 03</div>
     <div class="letterhead-mark">Sound <em>familiar?</em></div>
     <div class="letterhead-right">If any of these sting — keep reading</div>
   </header>
@@ -1857,7 +2066,7 @@ body.lb-open { overflow: hidden; }
       </div>
       <div class="pain-fix">
         <span class="mono">We fix it</span>
-        <p>Social included. Copy, scheduling, replies. You go to bed.</p>
+        <p>Social posts going out on time. Planned, produced, posted — we'll leave replies to you.</p>
       </div>
     </div>
   </div>
@@ -1866,16 +2075,16 @@ body.lb-open { overflow: hidden; }
     <span class="hand pains-hand">↓ that's the job description</span>
   </div>
 
-  <div class="page-number">Page 02 / 07 · Pain points</div>
+  <div class="page-number">Page 03 / 07 · Pain points</div>
   <div class="page-stamp">If you nodded — keep going</div>
 </article>
 
 <!-- =================================================== -->
-<!-- PAGE 03 — THE PIPELINE                               -->
+<!-- PAGE 04 — THE PIPELINE                               -->
 <!-- =================================================== -->
-<article class="page" id="page-03" data-screen-label="03 Pipeline">
+<article class="page" id="page-04" data-screen-label="04 Pipeline">
   <header class="letterhead">
-    <div class="letterhead-left">Dossier 001 / P. 03</div>
+    <div class="letterhead-left">Dossier 001 / P. 04</div>
     <div class="letterhead-mark">The <em>Pipeline.</em></div>
     <div class="letterhead-right">Six disciplines · One roof</div>
   </header>
@@ -1888,74 +2097,47 @@ body.lb-open { overflow: hidden; }
   <div class="pipeline-grid">
     <div class="pipeline-tile">
       <span class="mono pt-no">Service 01</span>
-      <h3>Film &amp; motion.</h3>
-      <p>Campaigns, reels, launch films. Shot, directed, graded, cut.</p>
+      <h3>Film &amp; photography.</h3>
+      <p>Campaigns, reels, launch films — shot, directed, graded, cut. Editorial stills of menus, rooms, product and people. One crew, both disciplines, same look.</p>
       <span class="pt-tag">Core</span>
     </div>
     <div class="pipeline-tile">
       <span class="mono pt-no">Service 02</span>
-      <h3>Photography.</h3>
-      <p>Editorial stills. Menus, rooms, product, people.</p>
-      <span class="pt-tag">Core</span>
-    </div>
-    <div class="pipeline-tile">
-      <span class="mono pt-no">Service 03</span>
       <h3>Graphic design.</h3>
       <p>Menus, decks, print — the brand between shoots.</p>
       <span class="pt-tag">Core</span>
     </div>
     <div class="pipeline-tile">
-      <span class="mono pt-no">Service 04</span>
+      <span class="mono pt-no">Service 03</span>
       <h3>Web design &amp; build.</h3>
       <p>Brand sites, landing pages, booking flows.</p>
       <span class="pt-tag">Core</span>
     </div>
     <div class="pipeline-tile">
-      <span class="mono pt-no">Service 05</span>
-      <h3>Social management.</h3>
-      <p>Scheduling, copy, stories, replies. Off your plate.</p>
+      <span class="mono pt-no">Service 04</span>
+      <h3>Social posting.</h3>
+      <p>We plan, produce and post the content — captions, scheduling, stories. Replies and DMs stay with you.</p>
       <span class="pt-tag">Core</span>
     </div>
     <div class="pipeline-tile pipeline-tile--soon">
-      <span class="mono pt-no">Service 06</span>
+      <span class="mono pt-no">Service 05</span>
       <h3>Paid media.</h3>
       <p>Meta &amp; Google, built off the content we've already made.</p>
       <span class="pt-tag pt-tag--soon">Coming soon</span>
+    </div>
+    <div class="pipeline-tile pipeline-tile--new">
+      <span class="mono pt-no">Service 06</span>
+      <h3>AI integration.</h3>
+      <p>Cut the admin. AI agents that qualify leads, automate handoffs, and wire your tools together — so you spend time on the work, not the mess around it.</p>
+      <span class="pt-tag pt-tag--new">AI integration</span>
+      <span class="pt-stamp-new" aria-hidden="true">New</span>
     </div>
   </div>
 
   <p class="pipeline-closer"><em>Everything downstream</em> gets better when one team is upstream.</p>
 
-  <div class="page-number">Page 03 / 07 · Pipeline</div>
+  <div class="page-number">Page 04 / 07 · Pipeline</div>
   <div class="page-stamp">One team · One brief</div>
-</article>
-
-<!-- =================================================== -->
-<!-- PAGE 04 — THE CLIENTS (visual-first)                 -->
-<!-- =================================================== -->
-<article class="page" id="page-04" data-screen-label="04 Work">
-  <header class="letterhead">
-    <div class="letterhead-left">Dossier 001 / P. 04</div>
-    <div class="letterhead-mark">The <em>Work.</em></div>
-    <div class="letterhead-right">Hospitality · Property · Build</div>
-  </header>
-
-  <h2 class="clients-heading reveal" style="margin-top:32px;">The <em>work.</em></h2>
-  <p class="clients-sub reveal reveal-d1">
-    Six on the book. More behind the curtain.
-  </p>
-
-  <div class="work-grid" id="work-grid">
-    <!-- Tiles injected via JS -->
-  </div>
-
-  <div class="work-foot">
-    <span>Six shown · more on the book</span>
-    <em>Plus one currently warming up.</em>
-  </div>
-
-  <div class="page-number">Page 04 / 07 · Work</div>
-  <div class="page-stamp">Currently on the book</div>
 </article>
 
 <!-- =================================================== -->
@@ -2150,7 +2332,7 @@ body.lb-open { overflow: hidden; }
   </p>
 
   <div class="close-grid">
-    <a href="https://calendly.com/team-visualstate/new-meeting" target="_blank" rel="noopener noreferrer" class="close-card">
+    <a href="https://calendly.com/team-visualstate/new-meeting" target="_blank" rel="noopener noreferrer" class="close-card close-card--primary">
       <span class="mono cc-no">Option 01</span>
       <h3>Book a call.</h3>
       <p class="cc-detail">Fifteen minutes. On a Tuesday.</p>
@@ -2487,7 +2669,7 @@ body.lb-open { overflow: hidden; }
 const pages = [...document.querySelectorAll('.page')];
 const dots = [...document.querySelectorAll('.nav-dots a')];
 const tbLabel = document.getElementById('tb-label');
-const PAGE_TITLES = { 'page-01': 'Cover', 'page-02': 'Pain points', 'page-03': 'Pipeline', 'page-04': 'Work', 'page-05': 'Rhythm', 'page-06': 'Founders', 'page-07': 'Next step' };
+const PAGE_TITLES = { 'page-01': 'Cover', 'page-02': 'Work', 'page-03': 'Pain points', 'page-04': 'Pipeline', 'page-05': 'Rhythm', 'page-06': 'Founders', 'page-07': 'Next step' };
 
 dots.forEach(d => d.addEventListener('click', (e) => {
   e.preventDefault();
