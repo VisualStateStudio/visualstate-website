@@ -1,6 +1,38 @@
 [build]
   publish = "."
 
+# Legacy dossier anchors redirect to new page structure.
+# These URLs weren't published externally but kept for safety.
+[[redirects]]
+  from = "/page-03"
+  to = "/services/#pains"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/page-04"
+  to = "/services/#pipeline"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/page-05"
+  to = "/services/#rhythm"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/page-06"
+  to = "/studio/#founders"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "/page-07"
+  to = "/studio/#contact"
+  status = 301
+  force = false
+
 [[headers]]
   for = "/assets/optimized/*"
   [headers.values]
@@ -16,6 +48,17 @@
   for = "/assets/favicon/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"
+
+# Shared CSS / JS — short cache, site is HTML-first and updates are frequent.
+[[headers]]
+  for = "/assets/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/assets/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
 
 [[headers]]
   for = "/*.html"
