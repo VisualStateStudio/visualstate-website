@@ -1367,15 +1367,19 @@ body.lb-open { overflow: hidden; }
   color: var(--mark);
 }
 
-/* Responsive for founders */
+/* Responsive for founders — snapped to brand-guide spacing scale */
 @media (max-width: 900px) {
   .pipeline-grid { grid-template-columns: 1fr; }
   .founder-j-main, .founder-a-main { grid-template-columns: 1fr; }
   .founder-j-photo { border-right: 0; border-bottom: 1px solid var(--rule); }
-  .founder-j-body { padding: 28px 24px; }
+  /* Defensive: prevent images escaping their card at any viewport.
+     Keep object-fit/height:100% (desktop) behaviour — just add max-width guard. */
+  .founder-j-photo img,
+  .founder-a-photo img { max-width: 100%; }
+  .founder-j-body { padding: 24px; }
   .founder--aleece { background: var(--paper); }
-  .founder-a-header { padding: 14px 22px; }
-  .founder-a-body { padding: 28px 24px; }
+  .founder-a-header { padding: 16px 24px; }
+  .founder-a-body { padding: 24px; }
   .founder-a-photo { margin: 0 24px 40px; }
   .founder-j-name, .founder-a-name { font-size: 36px; }
 }
@@ -1518,55 +1522,102 @@ body.lb-open { overflow: hidden; }
   .reveal { opacity: 1; transform: none; }
 }
 
-/* Responsive */
+/* =====================================================================
+   RESPONSIVE — mobile rhythm snapped to brand-guide scale
+   Scale tokens: 8 / 16 / 24 / 40 / 56 / 72 / 80 / 96 / 120
+   (sub-16 values — 4/6/8/10/12 — kept only for type/micro-rhythm)
+   ===================================================================== */
+
 @media (max-width: 900px) {
-  /* MOBILE FIX 01 — fixed topbar body offset. Pages need clearance below the fixed topbar
-     (topbar sits at top: 12px with ~44px height ≈ ending at 56px). 72px padding-top gives
-     ~16px gap. Also bumping bottom to 96px so absolutely-positioned .page-number /
-     .page-stamp don't collide with kickers (MOBILE FIX 06). */
-  .page { padding: 72px 24px 96px; width: calc(100% - 20px); margin: 32px auto; }
-  .cover { padding: 72px 28px 72px; }
-  .stamp { top: 70px; right: 28px; }
-  .letterhead { grid-template-columns: 1fr 1fr; }
+  /* PAGE SHELL — 72px top clearance (fixed topbar), 24px gutters, 96px bottom
+     so absolutely-positioned .page-number / .page-stamp stay clear. */
+  .page {
+    padding: 72px 24px 96px;
+    width: calc(100% - 24px);
+    margin: 24px auto;
+  }
+  .cover { padding: 72px 24px 80px; }
+
+  /* LETTERHEAD — stack, consistent 24px rhythm */
+  .letterhead { grid-template-columns: 1fr 1fr; gap: 16px; padding-bottom: 16px; }
   .letterhead-right { grid-column: 1/3; text-align: left; font-size: 9px; }
   .letterhead-mark { order: -1; }
-  .meta-strip { grid-template-columns: 1fr 1fr; gap: 20px; }
-  .cover-foot { grid-template-columns: 1fr; gap: 20px; }
+  .page > .letterhead + .rule-thin { margin-bottom: 24px; }
+
+  .meta-strip { grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+
+  /* COVER — stamp absolute, sits in top-right of the cover card,
+     below the letterhead rule so it never overlaps the meta strip. */
+  .stamp {
+    position: absolute;
+    top: 208px;
+    right: 24px;
+    padding: 10px 14px;
+    font-size: 10px;
+    letter-spacing: .22em;
+  }
+  .stamp em { font-size: 16px; }
+  .cover-foot { grid-template-columns: 1fr; gap: 24px; padding-top: 24px; margin-top: 40px; }
+
+  /* PAINS — uniform rhythm */
+  .pain { grid-template-columns: 1fr; gap: 24px; padding: 40px 0; }
+  .pain-fix { padding-left: 16px; }
+
+  /* RHYTHM */
   .rhythm-grid { grid-template-columns: 1fr 1fr; }
   .rhythm-week { border-right: none; border-bottom: 1px solid rgba(24,20,15,.15); }
-  .rhythm-aside { grid-template-columns: 1fr; gap: 28px; }
+  .rhythm-aside { grid-template-columns: 1fr; gap: 24px; }
+
+  /* STUDIO / FOUNDERS / PIPELINE — single column */
   .studio-grid { grid-template-columns: 1fr; }
+  .pipeline-grid { grid-template-columns: 1fr; }
+
+  /* CLOSE (page 07) — tightened around CTA */
   .close-grid { grid-template-columns: 1fr; }
-  .close-card { border-right: 0; border-bottom: 1px solid rgba(24,20,15,.15); }
-  .close-foot { grid-template-columns: 1fr; gap: 28px; }
+  .close-card {
+    border-right: 0;
+    border-bottom: 1px solid rgba(24,20,15,.15);
+    padding: 24px;
+  }
+  .close-card:last-child { border-bottom: 0; }
+  .close-foot { grid-template-columns: 1fr; gap: 24px; padding-top: 24px; }
   .close-foot .address { text-align: left; }
+
+  /* LEDGER / CLIENTS table */
   .ledger thead th:nth-child(3), .ledger tbody td:nth-child(3) { display: none; }
   .ledger .cli-name { font-size: 18px; }
-  .ledger tr.details-row .details-inner { grid-template-columns: 1fr; gap: 20px; }
+  .ledger tr.details-row .details-inner { grid-template-columns: 1fr; gap: 24px; }
+
   .nav-dots { display: none; }
-  .pain { grid-template-columns: 1fr; gap: 20px; padding: 28px 0; }
-  .pain-fix { padding-left: 16px; }
-  .work-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* WORK / CLIENTS grid */
+  .work-grid { grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
   .work-tile .wt-info .wt-name { font-size: 19px; }
-  .lightbox-inner { padding: 48px 24px 56px; }
-  .lb-head { grid-template-columns: 1fr; gap: 12px; }
+  .work-foot { flex-direction: column; gap: 16px; align-items: flex-start; margin-top: 24px; padding-top: 24px; }
+
+  /* LIGHTBOX */
+  .lightbox-inner { padding: 40px 24px 56px; }
+  .lb-head { grid-template-columns: 1fr; gap: 16px; }
   .lb-meta { align-items: flex-start; text-align: left; }
   .lb-gallery { column-count: 2; column-gap: 8px; }
   .lb-gallery .lb-shot { margin-bottom: 8px; }
-  .work-foot { flex-direction: column; gap: 12px; align-items: flex-start; }
-  .topbar { top: 12px; left: 12px; right: 12px; gap: 10px; }
+
+  /* TOPBAR */
+  .topbar { top: 16px; left: 16px; right: 16px; gap: 8px; }
   .topbar-brand { font-size: 13px; padding: 8px 12px; }
   .topbar-middle { display: none; }
-  .topbar-cta { padding: 12px 14px; font-size: 9px; letter-spacing: .18em; min-height: 44px; }
-  .page-number { left: 28px; bottom: 20px; }
-  .page-stamp { right: 28px; bottom: 20px; }
+  .topbar-cta { padding: 12px 16px; font-size: 9px; letter-spacing: .18em; min-height: 44px; }
+
+  /* PAGE FOOTER STAMPS — aligned with 24px horizontal gutter */
+  .page-number { left: 24px; bottom: 24px; }
+  .page-stamp  { right: 24px; bottom: 24px; }
 }
 
-/* MOBILE FIX 07 — tap target sweep (WCAG 44x44 on touch widths) */
+/* WCAG tap-target sweep — 44x44 minimum */
 @media (max-width: 768px) {
   .pipeline-tile .pt-tag {
     min-height: 44px;
-    padding: 10px 14px;
+    padding: 8px 16px;
     display: inline-flex;
     align-items: center;
   }
@@ -1575,9 +1626,6 @@ body.lb-open { overflow: hidden; }
     display: inline-flex;
     align-items: center;
   }
-  .close-card {
-    padding: 28px 24px 32px;
-  }
   .cta-pill {
     min-height: 44px;
     display: inline-flex;
@@ -1585,61 +1633,60 @@ body.lb-open { overflow: hidden; }
   }
 }
 
-/* Phone-portrait layout adjustments (fixes 2, 3, 4, 5, 6, 8) */
+/* Phone-portrait — single-column reflow + cover hero fine-tune */
 @media (max-width: 600px) {
 
-  /* MOBILE FIX 02 — cover BOOKING stamp flows inline so it doesn't overlap letterhead */
+  /* COVER — tighten hero vertical rhythm */
+  .cover-hero { padding: 40px 0 56px; }
+  .cover-kicker { margin-bottom: 24px; }
+  .cover-sub { margin-top: 40px; }
+
+  /* STAMP — seat it just under the letterhead rule in the hero's top-right.
+     Smaller + rotated so it reads like a postmark, not a block of text. */
   .stamp {
-    position: static;
-    display: inline-block;
-    margin: 16px 0 28px;
-    transform: rotate(-4deg);
-    top: auto;
-    right: auto;
+    top: 200px;
+    right: 16px;
+    padding: 8px 12px 10px;
+    font-size: 9px;
+    letter-spacing: .2em;
+    transform: rotate(-5deg) scale(.9);
+    transform-origin: top right;
   }
+  .stamp em { font-size: 14px; }
 
-  /* MOBILE FIX 03 — hand-fix annotation reflows below the struck word */
+  /* HAND-FIX — inline annotation to the RIGHT of the struck word so the
+     left-arrow aims back at "agency". Override the desktop absolute offset
+     to keep it within the viewport at narrow widths. */
   .hand-fix {
-    top: 100%;
-    left: 0;
-    transform: rotate(-2deg);
-    font-size: clamp(22px, 6vw, 32px);
+    top: 50%;
+    left: calc(100% + 6px);
+    transform: translateY(-55%) rotate(-4deg);
+    font-size: clamp(16px, 4.8vw, 22px);
   }
 
-  /* MOBILE FIX 04 — work-tile slate lock-up (consistent height, wrap long industry strings) */
+  /* WORK-tile slate */
   .work-tile .wt-slate {
     min-height: 34px;
     align-items: center;
     font-size: 8px;
     letter-spacing: .15em;
   }
-  .work-tile .wt-row2 {
-    flex-wrap: wrap;
-    row-gap: 4px;
-  }
+  .work-tile .wt-row2 { flex-wrap: wrap; row-gap: 4px; }
 
-  /* MOBILE FIX 05 — Aleece card restructure (photo first, tape inside, caption static, stack entries) */
-  .founder-a-main {
-    display: flex;
-    flex-direction: column;
-  }
+  /* ALEECE card restructure — photo first, caption static, stacked entries */
+  .founder-a-main { display: flex; flex-direction: column; }
   .founder-a-photo {
     order: -1;
-    margin: 24px 24px 48px;
-    overflow: visible;
+    margin: 24px;
+    overflow: hidden;            /* contain image & tapes (tapes brought inside) */
   }
-  .founder-a-tape.tape1 { top: -4px; left: -4px; }
-  .founder-a-tape.tape2 { bottom: -4px; right: -4px; }
-  .founder-a-caption {
-    position: static;
-    margin-top: 12px;
-  }
-  .founder-a-entry {
-    grid-template-columns: 1fr;
-    gap: 2px;
-  }
-  /* Kill the red-rule gradient stop on mobile so .founder-a-body padding can drop to 24px
-     without misalignment; cleaner than re-introducing a 90px pad at this width. */
+  .founder-a-photo img,
+  .founder-j-photo img { max-width: 100%; }
+  .founder-a-tape.tape1 { top: 8px; left: 8px; }
+  .founder-a-tape.tape2 { bottom: 8px; right: 8px; }
+  .founder-a-caption { position: static; margin-top: 16px; }
+  .founder-a-entry { grid-template-columns: 1fr; gap: 4px; }
+  /* Kill the red-rule gradient stop on mobile so .founder-a-body padding drops cleanly */
   .founder--aleece {
     background:
       repeating-linear-gradient(180deg,
@@ -1648,12 +1695,12 @@ body.lb-open { overflow: hidden; }
       var(--paper);
   }
 
-  /* MOBILE FIX 06 — pains kicker + lateral annotations clear page footer */
-  .pains-kicker { margin-bottom: 48px; }
-  .rhythm-aside { margin-bottom: 32px; }
-  .close-foot { margin-bottom: 24px; }
+  /* Kicker / aside clearance from absolute page footer */
+  .pains-kicker  { margin-bottom: 40px; }
+  .rhythm-aside  { margin-bottom: 24px; }
+  .close-foot    { margin-bottom: 24px; }
 
-  /* MOBILE FIX 08 — rhythm caveat annotations reset to inline flow */
+  /* RHYTHM caveats reset to inline flow so they don't overlap content */
   .rhythm-note {
     position: static;
     transform: rotate(-2deg);
@@ -1661,7 +1708,6 @@ body.lb-open { overflow: hidden; }
     max-width: none;
     display: inline-block;
   }
-  /* override inline style on the week-04 note */
   .rhythm-week .rhythm-note[style] {
     top: auto !important;
     bottom: auto !important;
@@ -1670,9 +1716,15 @@ body.lb-open { overflow: hidden; }
   }
 }
 
-/* Smallest-phone single column for rhythm grid (fix 8 supplemental) */
+/* Smallest-phone — single column for rhythm grid */
 @media (max-width: 420px) {
   .rhythm-grid { grid-template-columns: 1fr; }
+  /* nudge stamp tighter so it never collides with the "Your business" headline */
+  .stamp {
+    top: 200px;
+    right: 12px;
+    transform: rotate(-5deg) scale(.82);
+  }
 }
 </style>
 </head>
