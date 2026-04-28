@@ -137,20 +137,48 @@
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }));
 
-    // Intersection observer — active section + topbar label
+    // Intersection observer — active section + topbar label.
+    // Uses a horizontal "scroll line" 40% down the viewport: whichever .page
+    // contains that line wins. rootMargin shrinks the IO root to that band so
+    // we only get callbacks when a section crosses the line; the inline
+    // getBoundingClientRect check picks the single section actually straddling
+    // the line (handles tall sections + multi-entry callbacks reliably).
+    function setActiveSection(target) {
+      const id = target.id;
+      dots.forEach(d => d.classList.toggle('active', d.dataset.page === id));
+      if (tbLabel) {
+        const label = target.dataset.screenLabel || id;
+        tbLabel.textContent = label.toUpperCase();
+      }
+    }
     const io = new IntersectionObserver(entries => {
+      const triggerY = window.innerHeight * 0.4;
       entries.forEach(en => {
-        if (en.isIntersecting && en.intersectionRatio > 0.3) {
-          const id = en.target.id;
-          dots.forEach(d => d.classList.toggle('active', d.dataset.page === id));
-          if (tbLabel) {
-            const label = en.target.dataset.screenLabel || id;
-            tbLabel.textContent = label.toUpperCase();
-          }
+        if (!en.isIntersecting) return;
+        const rect = en.target.getBoundingClientRect();
+        if (rect.top <= triggerY && rect.bottom >= triggerY) {
+          setActiveSection(en.target);
         }
       });
-    }, { threshold: [0, 0.3, 0.6] });
+    }, { rootMargin: '-40% 0px -60% 0px', threshold: 0 });
     pages.forEach(p => io.observe(p));
+
+    // Seed initial active state on load — IO doesn't fire for sections that
+    // are already in view at page-load, so pick whichever one currently
+    // contains the trigger line.
+    function seedInitialActive() {
+      const triggerY = window.innerHeight * 0.4;
+      const current = pages.find(p => {
+        const rect = p.getBoundingClientRect();
+        return rect.top <= triggerY && rect.bottom >= triggerY;
+      }) || pages[0];
+      if (current) setActiveSection(current);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', seedInitialActive);
+    } else {
+      seedInitialActive();
+    }
 
     // Arrow-key page navigation within the current page
     document.addEventListener('keydown', e => {

@@ -71,10 +71,8 @@ em { font-style: italic; }
 /* ---------- PAGE SHELL ---------- */
 .page {
   position: relative;
-  max-width: 1760px;
-  width: calc(100% - 32px);
+  max-width: min(1920px, calc(100vw - 80px));
   margin: 40px auto;
-  min-height: calc(100vh - 80px);
   background: var(--paper);
   color: var(--ink);
   padding: 56px 72px 72px;
@@ -1740,7 +1738,7 @@ body.lb-open { overflow: hidden; }
      so absolutely-positioned .page-number / .page-stamp stay clear. */
   .page {
     padding: 72px 24px 96px;
-    width: calc(100% - 24px);
+    max-width: calc(100vw - 24px);
     margin: 24px auto;
   }
   .cover { padding: 72px 24px 80px; }
