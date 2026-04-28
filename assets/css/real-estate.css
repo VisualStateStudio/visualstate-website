@@ -618,6 +618,57 @@
   border-color: var(--paper);
 }
 
+.re-lead-form.is-submitting {
+  opacity: .72;
+  pointer-events: none;
+}
+
+.re-submit-frame {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.re-thank-you {
+  display: none;
+  padding: 34px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--rule);
+  box-shadow: 12px 12px 0 var(--stamp);
+}
+
+.re-thank-you.is-visible {
+  display: block;
+}
+
+.re-thank-you span {
+  color: var(--stamp);
+}
+
+.re-thank-you h3 {
+  margin-top: 20px;
+  font-family: 'Fraunces', serif;
+  font-size: 58px;
+  font-weight: 300;
+  line-height: .92;
+}
+
+.re-thank-you p {
+  margin-top: 20px;
+  font-size: 24px;
+  line-height: 1.25;
+  color: rgba(240,235,224,.78);
+}
+
+.re-thank-you .re-btn {
+  margin-top: 28px;
+  border-color: var(--paper);
+}
+
 @media (max-width: 980px) {
   .re-copy h1 {
     font-size: 96px;

@@ -32,7 +32,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="../assets/css/site.css">
-<link rel="stylesheet" href="../assets/css/real-estate.css?v=d54c62f">
+<link rel="stylesheet" href="../assets/css/real-estate.css?v=thanks1">
 </head>
 <body class="real-estate-page">
 
@@ -275,8 +275,10 @@
 
       <form
         class="re-lead-form"
+        data-lead-form
         action="https://josephds.app.n8n.cloud/webhook/real-estate-listing-enquiry"
         method="post"
+        target="re-submit-frame"
       >
         <input type="hidden" name="leadType" value="Current or upcoming listing">
         <input type="hidden" name="packageInterest" value="$899 Listing Launch Package">
@@ -302,6 +304,13 @@
         </label>
         <button type="submit" class="re-submit">Check shoot availability</button>
       </form>
+      <iframe class="re-submit-frame" name="re-submit-frame" title="Lead form submission"></iframe>
+      <div class="re-thank-you" data-thank-you aria-live="polite" tabindex="-1">
+        <span class="mono">Request received</span>
+        <h3>We have your listing details.</h3>
+        <p>The Visual State team will check the shoot window and come back with availability, timing and the cleanest next step.</p>
+        <a href="#cover" class="re-btn re-btn-secondary">Back to top</a>
+      </div>
     </div>
 
     <div class="page-number">Page 05 / 05 / Enquiry</div>
@@ -309,6 +318,29 @@
   </article>
 </main>
 
+<script>
+  (function () {
+    var form = document.querySelector('[data-lead-form]');
+    var thanks = document.querySelector('[data-thank-you]');
+    var frame = document.querySelector('.re-submit-frame');
+    if (!form || !thanks || !frame) return;
+
+    var submitted = false;
+    form.addEventListener('submit', function () {
+      submitted = true;
+      form.classList.add('is-submitting');
+      var button = form.querySelector('button[type="submit"]');
+      if (button) button.textContent = 'Sending details...';
+    });
+
+    frame.addEventListener('load', function () {
+      if (!submitted) return;
+      form.hidden = true;
+      thanks.classList.add('is-visible');
+      thanks.focus({ preventScroll: true });
+    });
+  })();
+</script>
 <script src="../assets/js/site.js" defer></script>
 </body>
 </html>
