@@ -302,11 +302,9 @@
           Anything useful to know?
           <textarea name="notes" rows="5" placeholder="Listing address, launch date, must-capture features, or whether you need agent content too."></textarea>
         </label>
-        <label class="re-consent">
-          <input type="checkbox" name="contactConsent" value="yes" required>
-          <span>I agree to be contacted by Visual State Studio about my listing enquiry by email, phone or SMS.</span>
-        </label>
+        <input type="hidden" name="contactConsent" value="yes">
         <button type="submit" class="re-submit">Check shoot availability</button>
+        <p class="re-consent">By clicking submit, you agree to be contacted by Visual State Studio via email, phone or SMS regarding your enquiry.</p>
       </form>
       <iframe class="re-submit-frame" name="re-submit-frame" title="Lead form submission"></iframe>
       <div class="re-thank-you" data-thank-you aria-live="polite" tabindex="-1">
