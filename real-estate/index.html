@@ -332,6 +332,13 @@
       form.classList.add('is-submitting');
       var button = form.querySelector('button[type="submit"]');
       if (button) button.textContent = 'Sending details...';
+
+      window.setTimeout(function () {
+        if (!submitted) return;
+        form.hidden = true;
+        thanks.classList.add('is-visible');
+        thanks.focus({ preventScroll: true });
+      }, 150);
     });
 
     frame.addEventListener('load', function () {
