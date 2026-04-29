@@ -611,6 +611,27 @@
   margin-top: 14px;
 }
 
+.re-consent {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  align-items: start;
+  gap: 10px;
+  color: rgba(240,235,224,.82);
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 14px;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.re-consent input {
+  width: 18px;
+  min-height: 18px;
+  margin-top: 1px;
+  accent-color: var(--stamp);
+}
+
 .re-submit {
   width: 100%;
   margin-top: 18px;
